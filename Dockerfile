@@ -23,4 +23,4 @@ COPY --from=build /go/src/github.com/ezeoleaf/tblogs/bin/tblogs /usr/local/bin/
 RUN adduser -h /config -DG users -u 20000 tblogs
 
 USER tblogs
-ENTRYPOINT ["ezeoleaf"]
+ENTRYPOINT ["tblogs"]
