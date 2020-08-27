@@ -2,52 +2,87 @@ package main
 
 import (
 	"fmt"
-	"log"
+	"strconv"
 
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
-	"github.com/spf13/viper"
 )
 
+type Slide func(nextSlide func()) (title string, content tview.Primitive)
+
+// The application.
+var app = tview.NewApplication()
+
 func main() {
-	// err := godotenv.Load()
+	// The presentation slides.
+	slides := []Slide{
+		Home,
+		Home,
+	}
 
-	// if err != nil {
-	// 	panic(err)
+	pages := tview.NewPages()
+
+	// The bottom row has some info on where we are.
+	info := tview.NewTextView().
+		SetDynamicColors(true).
+		SetRegions(true).
+		SetWrap(false).
+		SetHighlightedFunc(func(added, removed, remaining []string) {
+			pages.SwitchToPage(added[0])
+		})
+
+	goToHome := func() {
+		info.Highlight("0").
+			ScrollToHighlight()
+	}
+	goToBlogs := func() {
+		info.Highlight("1").
+			ScrollToHighlight()
+	}
+	// Create the pages for all slides.
+	// previousSlide := func() {
+	// 	slide, _ := strconv.Atoi(info.GetHighlights()[0])
+	// 	slide = (slide - 1 + len(slides)) % len(slides)
+	// 	fmt.Println(slide)
+	// 	info.Highlight(strconv.Itoa(slide)).
+	// 		ScrollToHighlight()
 	// }
+	nextSlide := func() {
+		slide, _ := strconv.Atoi(info.GetHighlights()[0])
+		slide = (slide + 1) % len(slides)
+		info.Highlight(strconv.Itoa(slide)).
+			ScrollToHighlight()
+	}
+	for index, slide := range slides {
+		title, primitive := slide(nextSlide)
+		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
+		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
+	}
+	info.Highlight("0")
 
-	viperenv := viperEnvVariable("BLOGIO_API")
-	fmt.Println(viperenv)
-	box := tview.NewBox().SetBorder(true).SetTitle("Hello, world!")
-	if err := tview.NewApplication().SetRoot(box, true).Run(); err != nil {
+	// Create the main layout.
+	layout := tview.NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(pages, 0, 1, true).
+		AddItem(info, 1, 1, false)
+
+	// Shortcuts to navigate the slides.
+	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyEnter {
+			return nil
+		}
+		if event.Key() == tcell.KeyCtrlH {
+			goToHome()
+			return nil
+		} else if event.Key() == tcell.KeyCtrlB {
+			goToBlogs()
+			return nil
+		}
+		return event
+	})
+
+	// Start the application.
+	if err := app.SetRoot(layout, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
-}
-
-func viperEnvVariable(key string) string {
-
-	// SetConfigFile explicitly defines the path, name and extension of the config file.
-	// Viper will use this and not check any of the config paths.
-	// .env - It will search for the .env file in the current directory
-	viper.SetConfigFile(".env")
-
-	// Find and read the config file
-	err := viper.ReadInConfig()
-
-	if err != nil {
-		log.Fatalf("Error while reading config file %s", err)
-	}
-
-	// viper.Get() returns an empty interface{}
-	// to get the underlying type of the key,
-	// we have to do the type assertion, we know the underlying value is string
-	// if we type assert to other type it will throw an error
-	value, ok := viper.Get(key).(string)
-
-	// If the type is a string then ok will be true
-	// ok will make sure the program not break
-	if !ok {
-		log.Fatalf("Invalid type assertion")
-	}
-
-	return value
 }
