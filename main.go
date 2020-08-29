@@ -18,6 +18,7 @@ func main() {
 	slides := []Slide{
 		Home,
 		BlogPage,
+		Grid,
 	}
 
 	pages := tview.NewPages()
@@ -37,6 +38,10 @@ func main() {
 	}
 	goToBlogs := func() {
 		info.Highlight("1").
+			ScrollToHighlight()
+	}
+	goToGrid := func() {
+		info.Highlight("2").
 			ScrollToHighlight()
 	}
 	// Create the pages for all slides.
@@ -77,8 +82,18 @@ func main() {
 		} else if event.Key() == tcell.KeyCtrlB {
 			goToBlogs()
 			return nil
+		} else if event.Key() == tcell.KeyCtrlG {
+			goToGrid()
+			return nil
 		}
 		return event
+	})
+
+	app.SetMouseCapture(func(event *tcell.EventMouse, mouseAction tview.MouseAction) (*tcell.EventMouse, tview.MouseAction) {
+		if mouseAction == tview.MouseLeftClick {
+			return nil, mouseAction
+		}
+		return event, mouseAction
 	})
 
 	// Start the application.
