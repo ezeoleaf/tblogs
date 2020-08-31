@@ -18,7 +18,8 @@ func main() {
 	slides := []Slide{
 		Home,
 		BlogPage,
-		Grid,
+		// Grid,
+		Table,
 	}
 
 	pages := tview.NewPages()
@@ -41,6 +42,10 @@ func main() {
 			ScrollToHighlight()
 	}
 	goToGrid := func() {
+		info.Highlight("2").
+			ScrollToHighlight()
+	}
+	goToTable := func() {
 		info.Highlight("2").
 			ScrollToHighlight()
 	}
@@ -84,17 +89,18 @@ func main() {
 			return nil
 		} else if event.Key() == tcell.KeyCtrlG {
 			goToGrid()
+			goToTable()
 			return nil
 		}
 		return event
 	})
 
-	app.SetMouseCapture(func(event *tcell.EventMouse, mouseAction tview.MouseAction) (*tcell.EventMouse, tview.MouseAction) {
-		if mouseAction == tview.MouseLeftClick {
-			return nil, mouseAction
-		}
-		return event, mouseAction
-	})
+	// app.SetMouseCapture(func(event *tcell.EventMouse, mouseAction tview.MouseAction) (*tcell.EventMouse, tview.MouseAction) {
+	// 	if mouseAction == tview.MouseLeftClick {
+	// 		return nil, mouseAction
+	// 	}
+	// 	return event, mouseAction
+	// })
 
 	// Start the application.
 	if err := app.SetRoot(layout, true).EnableMouse(true).Run(); err != nil {

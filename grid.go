@@ -26,9 +26,12 @@ func Grid(nextSlide func()) (title string, content tview.Primitive) {
 		SetBorders(true)
 	grid.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyDown {
-			fmt.Println("Down key")
-			return nil
+			fmt.Println("Down key. Down keyDown keyDown keyDown keyDown key")
+			nextSlide()
+			return event
 		}
+		nextSlide()
+		fmt.Println("OTHER KEY")
 		// if modalShown {
 		// 	nextSlide()
 		// 	modalShown = false
@@ -36,7 +39,7 @@ func Grid(nextSlide func()) (title string, content tview.Primitive) {
 		// 	pages.ShowPage("modal")
 		// 	modalShown = true
 		// }
-		return nil
+		return event
 	})
 
 	// Layout for screens narrower than 100 cells (blogs and side bar are hidden).
@@ -50,11 +53,46 @@ func Grid(nextSlide func()) (title string, content tview.Primitive) {
 		list.AddItem(blog.Name, blog.Company, 'x', nextSlide)
 	}
 
+	list.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyDown {
+			fmt.Println("Down key. Down keyDown keyDown keyDown keyDown key")
+			nextSlide()
+			return event
+		}
+		nextSlide()
+		fmt.Println("OTHER KEY")
+		// if modalShown {
+		// 	nextSlide()
+		// 	modalShown = false
+		// } else {
+		// 	pages.ShowPage("modal")
+		// 	modalShown = true
+		// }
+		return event
+	})
+
 	// Layout for screens wider than 100 cells.
 	grid.AddItem(list, 0, 0, 10, 1, 0, 100, true).
 		AddItem(posts, 0, 1, 10, 4, 0, 100, false)
 	// AddItem(list, 0, 1, 10, 4, 0, 100, false)
 
+	pages.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyDown {
+			fmt.Println("Down key. Down keyDown keyDown keyDown keyDown key")
+			nextSlide()
+			return event
+		}
+		nextSlide()
+		fmt.Println("OTHER KEY")
+		// if modalShown {
+		// 	nextSlide()
+		// 	modalShown = false
+		// } else {
+		// 	pages.ShowPage("modal")
+		// 	modalShown = true
+		// }
+		return event
+	})
 	pages.AddPage("grid", grid, true, true)
 
 	return "Grid", pages
