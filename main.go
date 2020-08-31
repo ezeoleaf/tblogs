@@ -78,9 +78,9 @@ func main() {
 
 	// Shortcuts to navigate the slides.
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyEnter {
-			return nil
-		}
+		// if event.Key() == tcell.KeyEnter {
+		// 	return nil
+		// }
 		if event.Key() == tcell.KeyCtrlH {
 			goToHome()
 			return nil
