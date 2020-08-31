@@ -16,7 +16,13 @@ type Blogs struct {
 	Blogs []Blog `json:"blogs"`
 }
 
+var blogs Blogs
+
 func GetBlogs() Blogs {
+
+	if len(blogs.Blogs) > 0 {
+		return blogs
+	}
 
 	client := &http.Client{}
 
@@ -40,11 +46,11 @@ func GetBlogs() Blogs {
 		panic(err)
 	}
 
-	bs := Blogs{}
-	err = json.Unmarshal(body, &bs)
+	blogs = Blogs{}
+	err = json.Unmarshal(body, &blogs)
 	if err != nil {
 		panic(err)
 	}
 
-	return bs
+	return blogs
 }

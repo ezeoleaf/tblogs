@@ -22,6 +22,15 @@ type Post struct {
 // Hash string `json:"hash"`
 // Saved       bool       `json:"saved"`
 
+var PostsCache map[int]Posts
+
+// var PostsCache []PostsList
+
+type PostsList struct {
+	BlogID int
+	Posts  Posts
+}
+
 type Posts struct {
 	Posts []Post `json:"posts"`
 }
@@ -31,9 +40,16 @@ type PostRequest struct {
 }
 
 func GetPostsByBlog(blogID int) Posts {
-	pr := PostRequest{Blogs: []int{blogID}}
 
-	return GetPosts(pr)
+	if len(PostsCache[blogID].Posts) == 0 {
+		pr := PostRequest{Blogs: []int{blogID}}
+
+		posts := GetPosts(pr)
+
+		PostsCache[blogID] = posts
+	}
+
+	return PostsCache[blogID]
 }
 
 func GetPosts(reqPost PostRequest) Posts {
@@ -55,6 +71,10 @@ func GetPosts(reqPost PostRequest) Posts {
 	req.Header.Add("Content-Type", "application/json")
 
 	resp, err := client.Do(req)
+	if err != nil {
+		panic(err)
+	}
+
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
