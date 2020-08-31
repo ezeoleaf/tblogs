@@ -17,9 +17,7 @@ func main() {
 	// The presentation slides.
 	slides := []Slide{
 		Home,
-		BlogPage,
-		// Grid,
-		Table,
+		Blogs,
 	}
 
 	pages := tview.NewPages()
