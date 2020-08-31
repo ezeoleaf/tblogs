@@ -22,13 +22,15 @@ type Post struct {
 // Hash string `json:"hash"`
 // Saved       bool       `json:"saved"`
 
-var PostsCache map[int]Posts
+var posts map[int]PostCache
+
+const defaultTime = 4
 
 // var PostsCache []PostsList
 
-type PostsList struct {
-	BlogID int
-	Posts  Posts
+type PostCache struct {
+	Posts       Posts
+	DateUpdated time.Time
 }
 
 type Posts struct {
@@ -41,15 +43,28 @@ type PostRequest struct {
 
 func GetPostsByBlog(blogID int) Posts {
 
-	if len(PostsCache[blogID].Posts) == 0 {
-		pr := PostRequest{Blogs: []int{blogID}}
+	if len(posts[blogID].Posts.Posts) > 0 {
+		d := time.Now()
+		diff := d.Sub(posts[blogID].DateUpdated).Hours()
 
-		posts := GetPosts(pr)
-
-		PostsCache[blogID] = posts
+		if diff < defaultTime {
+			return posts[blogID].Posts
+		}
 	}
 
-	return PostsCache[blogID]
+	pr := PostRequest{Blogs: []int{blogID}}
+
+	if len(posts) == 0 {
+		posts = make(map[int]PostCache)
+	}
+
+	postsResp := GetPosts(pr)
+
+	pc := PostCache{Posts: postsResp, DateUpdated: time.Now()}
+
+	posts[blogID] = pc
+
+	return postsResp
 }
 
 func GetPosts(reqPost PostRequest) Posts {
