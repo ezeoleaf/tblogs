@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/ezeoleaf/tblogs/api"
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 )
 
@@ -73,6 +74,19 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 	b := api.GetBlogs()
 	listBlogs.SetBorderPadding(1, 1, 2, 2)
 	listBlogs.ShowSecondaryText(false)
+	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+		if event.Key() == tcell.KeyCtrlF {
+			// TODO: Follow blog
+			x := listBlogs.GetCurrentItem()
+			blog := b.Blogs[x]
+			listBlogs.RemoveItem(x)
+			listBlogs.InsertItem(x, blog.Name, blog.Company, 'f', func() {
+				return
+			})
+			return nil
+		}
+		return event
+	})
 	for _, blog := range b.Blogs {
 		listBlogs.AddItem(blog.Name, blog.Company, ' ', func() {
 			return
