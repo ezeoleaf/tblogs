@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"strings"
 
+	"github.com/ezeoleaf/tblogs/api"
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 )
@@ -292,71 +293,86 @@ func Table(nextSlide func()) (title string, content tview.Primitive) {
 		fmt.Fprint(code, tableBasic)
 	}
 
-	separator := func() {
-		table.SetBorders(false).
-			SetSelectable(false, false).
-			SetSeparator(tview.Borders.Vertical)
-		code.Clear()
-		fmt.Fprint(code, tableSeparator)
-	}
+	// separator := func() {
+	// 	table.SetBorders(false).
+	// 		SetSelectable(false, false).
+	// 		SetSeparator(tview.Borders.Vertical)
+	// 	code.Clear()
+	// 	fmt.Fprint(code, tableSeparator)
+	// }
 
-	borders := func() {
-		table.SetBorders(true).
-			SetSelectable(false, false)
-		code.Clear()
-		fmt.Fprint(code, tableBorders)
-	}
+	// borders := func() {
+	// 	table.SetBorders(true).
+	// 		SetSelectable(false, false)
+	// 	code.Clear()
+	// 	fmt.Fprint(code, tableBorders)
+	// }
 
-	selectRow := func() {
-		table.SetBorders(false).
-			SetSelectable(true, false).
-			SetSeparator(' ')
-		code.Clear()
-		fmt.Fprint(code, tableSelectRow)
-	}
+	// selectRow := func() {
+	// 	table.SetBorders(false).
+	// 		SetSelectable(true, false).
+	// 		SetSeparator(' ')
+	// 	code.Clear()
+	// 	fmt.Fprint(code, tableSelectRow)
+	// }
 
-	selectColumn := func() {
-		table.SetBorders(false).
-			SetSelectable(false, true).
-			SetSeparator(' ')
-		code.Clear()
-		fmt.Fprint(code, tableSelectColumn)
-	}
+	// selectColumn := func() {
+	// 	table.SetBorders(false).
+	// 		SetSelectable(false, true).
+	// 		SetSeparator(' ')
+	// 	code.Clear()
+	// 	fmt.Fprint(code, tableSelectColumn)
+	// }
 
-	selectCell := func() {
-		table.SetBorders(false).
-			SetSelectable(true, true).
-			SetSeparator(' ')
-		code.Clear()
-		fmt.Fprint(code, tableSelectCell)
-	}
+	// selectCell := func() {
+	// 	table.SetBorders(false).
+	// 		SetSelectable(true, true).
+	// 		SetSeparator(' ')
+	// 	code.Clear()
+	// 	fmt.Fprint(code, tableSelectCell)
+	// }
 
-	navigate := func() {
-		app.SetFocus(table)
-		table.SetDoneFunc(func(key tcell.Key) {
-			app.SetFocus(list)
-		}).SetSelectedFunc(func(row int, column int) {
-			app.SetFocus(list)
-		})
-	}
+	// navigate := func() {
+	// 	app.SetFocus(table)
+	// 	table.SetDoneFunc(func(key tcell.Key) {
+	// 		app.SetFocus(list)
+	// 	}).SetSelectedFunc(func(row int, column int) {
+	// 		app.SetFocus(list)
+	// 	})
+	// }
 
-	list.ShowSecondaryText(false).
-		AddItem("Basic table", "", 'b', basic).
-		AddItem("Table with separator", "", 's', separator).
-		AddItem("Table with borders", "", 'o', borders).
-		AddItem("Selectable rows", "", 'r', selectRow).
-		AddItem("Selectable columns", "", 'c', selectColumn).
-		AddItem("Selectable cells", "", 'l', selectCell).
-		AddItem("Navigate", "", 'n', navigate).
-		AddItem("Next slide", "", 'x', nextSlide)
+	// list.ShowSecondaryText(false).
+	// AddItem("Basic table", "", 'b', basic).
+	// AddItem("Table with separator", "", 's', separator).
+	// AddItem("Table with borders", "", 'o', borders).
+	// AddItem("Selectable rows", "", 'r', selectRow).
+	// AddItem("Selectable columns", "", 'c', selectColumn).
+	// AddItem("Selectable cells", "", 'l', selectCell).
+	// AddItem("Navigate", "", 'n', navigate).
+	// AddItem("Next slide", "", 'x', nextSlide)
+
+	b := api.GetBlogs()
 	list.SetBorderPadding(1, 1, 2, 2)
+	list.ShowSecondaryText(false)
+	for _, blog := range b.Blogs {
+		f := func() {
+			// app.SetFocus()
+			code.Clear()
+			fmt.Fprint(code, blog.Name)
+			// table.SetDoneFunc(func(key tcell.Key) {
+			// 	app.SetFocus(list)
+			// }).SetSelectedFunc(func(row int, column int) {
+			// 	app.SetFocus(list)
+			// })
+		}
+		list.AddItem(blog.Name, blog.Company, 'x', f)
+	}
 
 	basic()
 
 	return "Table", tview.NewFlex().
 		AddItem(tview.NewFlex().
 			SetDirection(tview.FlexRow).
-			AddItem(list, 10, 1, true).
-			AddItem(table, 0, 1, false), 0, 1, true).
+			AddItem(list, 0, 1, true), 0, 1, true).
 		AddItem(code, 100, 1, false)
 }
