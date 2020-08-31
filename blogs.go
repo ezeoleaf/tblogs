@@ -1,8 +1,14 @@
 package main
 
 import (
+	"fmt"
+	"log"
+	"os/exec"
+	"runtime"
+
 	"github.com/ezeoleaf/tblogs/api"
 	"github.com/gdamore/tcell"
+	"github.com/pkg/browser"
 	"github.com/rivo/tview"
 )
 
@@ -76,7 +82,6 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 	listBlogs.ShowSecondaryText(false)
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlF {
-			// TODO: Follow blog
 			x := listBlogs.GetCurrentItem()
 			blog := b.Blogs[x]
 			listBlogs.RemoveItem(x)
@@ -106,11 +111,16 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		// code.Clear()
 		for _, post := range posts.Posts {
 			listPosts.AddItem(post.Title, post.Published, '-', func() {
+				// openBrowser(post.Link) // Other posibility
+				browser.OpenURL(post.Link)
 				return
+			})
+
+			listPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
+
 			})
 		}
 		app.SetFocus(listPosts)
-		// fmt.Fprint(code, posts)
 	})
 
 	return "Blogs", tview.NewFlex().
@@ -118,4 +128,23 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 			SetDirection(tview.FlexRow).
 			AddItem(listBlogs, 0, 1, true), 0, 1, true).
 		AddItem(listPosts, 100, 1, false)
+}
+
+// Backup version
+func openBrowser(url string) {
+	var err error
+
+	switch runtime.GOOS {
+	case "linux":
+		err = exec.Command("xdg-open", url).Start()
+	case "windows":
+		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+	case "darwin":
+		err = exec.Command("open", url).Start()
+	default:
+		err = fmt.Errorf("unsupported platform")
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
 }

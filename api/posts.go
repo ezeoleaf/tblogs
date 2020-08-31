@@ -16,11 +16,9 @@ type Post struct {
 	BlogID      int64      `json:"blog_id"`
 	Published   string     `json:"published"`
 	PublishedAt *time.Time `json:"published_at"`
+	Link        string     `json:"link"`
+	Hash        string     `json:"hash"`
 }
-
-// Link        string     `json:"link"`
-// Hash string `json:"hash"`
-// Saved       bool       `json:"saved"`
 
 var posts map[int]PostCache
 
