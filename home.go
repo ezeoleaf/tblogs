@@ -20,8 +20,8 @@ const logo = `
 `
 
 const (
-	subtitle   = `tview - Rich Widgets for Terminal UIs`
-	navigation = `Ctrl-N: Next slide    Ctrl-P: Previous slide    Ctrl-C: Exit`
+	subtitle   = `tblogs - Read development blogs from the terminal`
+	navigation = `Ctrl-B: Blogs    Ctrl-H: Home    Ctrl-P: Posts    Ctrl-C: Exit`
 	mouse      = `(or use your mouse)`
 )
 
