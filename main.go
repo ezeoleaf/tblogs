@@ -20,7 +20,7 @@ func main() {
 
 	// The presentation slides.
 	slides := []Slide{
-		Home,
+		Help,
 		Blogs,
 	}
 
@@ -35,7 +35,7 @@ func main() {
 			pages.SwitchToPage(added[0])
 		})
 
-	goToHome := func() {
+	goToHelp := func() {
 		info.Highlight("0").
 			ScrollToHighlight()
 	}
@@ -43,22 +43,6 @@ func main() {
 		info.Highlight("1").
 			ScrollToHighlight()
 	}
-	goToGrid := func() {
-		info.Highlight("2").
-			ScrollToHighlight()
-	}
-	goToTable := func() {
-		info.Highlight("2").
-			ScrollToHighlight()
-	}
-	// Create the pages for all slides.
-	// previousSlide := func() {
-	// 	slide, _ := strconv.Atoi(info.GetHighlights()[0])
-	// 	slide = (slide - 1 + len(slides)) % len(slides)
-	// 	fmt.Println(slide)
-	// 	info.Highlight(strconv.Itoa(slide)).
-	// 		ScrollToHighlight()
-	// }
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
@@ -84,14 +68,10 @@ func main() {
 		// 	return nil
 		// }
 		if event.Key() == tcell.KeyCtrlH {
-			goToHome()
+			goToHelp()
 			return nil
 		} else if event.Key() == tcell.KeyCtrlB {
 			goToBlogs()
-			return nil
-		} else if event.Key() == tcell.KeyCtrlG {
-			goToGrid()
-			goToTable()
 			return nil
 		}
 		return event

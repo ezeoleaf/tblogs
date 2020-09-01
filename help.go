@@ -26,7 +26,7 @@ const (
 )
 
 // Cover returns the cover page.
-func Home(nextSlide func()) (title string, content tview.Primitive) {
+func Help(nextSlide func()) (title string, content tview.Primitive) {
 	// What's the size of the logo?
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
@@ -61,5 +61,5 @@ func Home(nextSlide func()) (title string, content tview.Primitive) {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-	return "Start", flex
+	return "Help", flex
 }
