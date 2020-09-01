@@ -2,6 +2,8 @@ package main
 
 import (
 	"github.com/ezeoleaf/tblogs/api"
+	"github.com/ezeoleaf/tblogs/cfg"
+	"github.com/ezeoleaf/tblogs/helpers"
 	"github.com/gdamore/tcell"
 	"github.com/pkg/browser"
 	"github.com/rivo/tview"
@@ -17,14 +19,30 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 	listBlogs := tview.NewList()
 
 	b := api.GetBlogs()
+
 	listBlogs.SetBorderPadding(1, 1, 2, 2)
 	listBlogs.ShowSecondaryText(false)
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlF {
+			appCfg := cfg.GetAPPConfig()
+
 			x := listBlogs.GetCurrentItem()
+
 			blog := b.Blogs[x]
+
+			r := ' '
+			isIn, ix := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
+			if !isIn {
+				r = 'f'
+				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs, blog.ID)
+				cfg.UpdateAppConfig(appCfg)
+			} else {
+				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs[:ix], appCfg.FollowingBlogs[ix+1:]...)
+				cfg.UpdateAppConfig(appCfg)
+			}
+
 			listBlogs.RemoveItem(x)
-			listBlogs.InsertItem(x, blog.Name, blog.Company, 'f', func() {
+			listBlogs.InsertItem(x, blog.Name, blog.Company, r, func() {
 				return
 			})
 			return nil
@@ -32,7 +50,13 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		return event
 	})
 	for _, blog := range b.Blogs {
-		listBlogs.AddItem(blog.Name, blog.Company, ' ', func() {
+		appCfg := cfg.GetAPPConfig()
+		r := ' '
+		isIn, _ := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
+		if isIn {
+			r = 'f'
+		}
+		listBlogs.AddItem(blog.Name, blog.Company, r, func() {
 			return
 		})
 	}
