@@ -16,62 +16,6 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 
 	listBlogs := tview.NewList()
 
-	// basic := func() {
-	// 	table.SetBorders(false).
-	// 		SetSelectable(false, false).
-	// 		SetSeparator(' ')
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableBasic)
-	// }
-
-	// separator := func() {
-	// 	table.SetBorders(false).
-	// 		SetSelectable(false, false).
-	// 		SetSeparator(tview.Borders.Vertical)
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableSeparator)
-	// }
-
-	// borders := func() {
-	// 	table.SetBorders(true).
-	// 		SetSelectable(false, false)
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableBorders)
-	// }
-
-	// selectRow := func() {
-	// 	table.SetBorders(false).
-	// 		SetSelectable(true, false).
-	// 		SetSeparator(' ')
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableSelectRow)
-	// }
-
-	// selectColumn := func() {
-	// 	table.SetBorders(false).
-	// 		SetSelectable(false, true).
-	// 		SetSeparator(' ')
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableSelectColumn)
-	// }
-
-	// selectCell := func() {
-	// 	table.SetBorders(false).
-	// 		SetSelectable(true, true).
-	// 		SetSeparator(' ')
-	// 	code.Clear()
-	// 	fmt.Fprint(code, tableSelectCell)
-	// }
-
-	// navigate := func() {
-	// 	app.SetFocus(table)
-	// 	table.SetDoneFunc(func(key tcell.Key) {
-	// 		app.SetFocus(list)
-	// 	}).SetSelectedFunc(func(row int, column int) {
-	// 		app.SetFocus(list)
-	// 	})
-	// }
-
 	b := api.GetBlogs()
 	listBlogs.SetBorderPadding(1, 1, 2, 2)
 	listBlogs.ShowSecondaryText(false)
