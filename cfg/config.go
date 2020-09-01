@@ -3,6 +3,7 @@ package cfg
 import (
 	"flag"
 	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -14,19 +15,22 @@ const (
 	app = "APP"
 )
 
+var config Config
+
+type Config struct {
+	API APIConfig `yaml:"api"`
+	APP APPConfig `yaml:"app"`
+}
+
 type APIConfig struct {
-	Config struct {
-		Host string `yaml:"url"`
-		Key  string `yaml:"key"`
-	} `yaml:"api"`
+	Host string `yaml:"url"`
+	Key  string `yaml:"key"`
 }
 
 type APPConfig struct {
-	Config struct {
-		SavedBlogs     []int `yaml:"saved_blogs"`
-		SavedPosts     []int `yaml:"saved_posts"`
-		FollowingBlogs []int `yaml:"following_blogs"`
-	} `yaml:"app"`
+	SavedBlogs     []int `yaml:"saved_blogs"`
+	SavedPosts     []int `yaml:"saved_posts"`
+	FollowingBlogs []int `yaml:"following_blogs"`
 }
 
 func parseFlags() (string, error) {
@@ -61,38 +65,36 @@ func validateConfigPath(path string) error {
 }
 
 func GetAPPConfig() APPConfig {
-	cfgPath, err := parseFlags()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	config := APPConfig{}
-
-	file, err := os.Open(cfgPath)
-	if err != nil {
-		log.Fatal(err)
-		return APPConfig{}
-	}
-	defer file.Close()
-
-	// Init new YAML decode
-	d := yaml.NewDecoder(file)
-
-	// Start YAML decoding from file
-	if err := d.Decode(&config); err != nil {
-		log.Fatal(err)
-		return APPConfig{}
-	}
-	return config
+	return config.APP
 }
 
 func GetAPIConfig() APIConfig {
+	return config.API
+}
+
+func GetConfig() Config {
+	return config
+}
+
+func UpdateConfig(c Config) {
+	d, err := yaml.Marshal(&c)
+	if err != nil {
+		log.Fatalf("error: %v", err)
+	}
+
+	err = ioutil.WriteFile("changed.yaml", d, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func Setup() {
 	cfgPath, err := parseFlags()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	config := APIConfig{}
+	config = Config{}
 
 	file, err := os.Open(cfgPath)
 	if err != nil {
@@ -107,5 +109,4 @@ func GetAPIConfig() APIConfig {
 	if err := d.Decode(&config); err != nil {
 		panic(err)
 	}
-	return config
 }

@@ -28,15 +28,15 @@ func GetBlogs() Blogs {
 
 	client := &http.Client{}
 
-	cfgAPI := cfg.GetAPIConfig()
+	cfgAPI := cfg.GetConfig().API
 
-	request, err := http.NewRequest("GET", cfgAPI.Config.Host, nil)
+	request, err := http.NewRequest("GET", cfgAPI.Host, nil)
 
 	if err != nil {
 		panic(err)
 	}
 
-	request.Header.Add("BLOGIO-KEY", cfgAPI.Config.Key)
+	request.Header.Add("BLOGIO-KEY", cfgAPI.Key)
 
 	resp, err := client.Do(request)
 	if err != nil {

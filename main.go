@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"strconv"
 
+	"github.com/ezeoleaf/tblogs/cfg"
+
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 )
@@ -14,6 +16,8 @@ type Slide func(nextSlide func()) (title string, content tview.Primitive)
 var app = tview.NewApplication()
 
 func main() {
+	cfg.Setup()
+
 	// The presentation slides.
 	slides := []Slide{
 		Home,
