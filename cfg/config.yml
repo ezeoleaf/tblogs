@@ -1,0 +1,7 @@
+api:
+    url: "https://api.dev-blogs.tech/api/blogs"
+    key: "LALA"
+app:
+    saved_blogs: []
+    saved_posts: []
+    following_blogs: []

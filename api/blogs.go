@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/ezeoleaf/tblogs/cfg"
 )
 
 type Blog struct {
@@ -26,13 +28,15 @@ func GetBlogs() Blogs {
 
 	client := &http.Client{}
 
-	request, err := http.NewRequest("GET", "https://api.dev-blogs.tech/api/blogs", nil)
+	cfgAPI := cfg.GetAPIConfig()
+
+	request, err := http.NewRequest("GET", cfgAPI.Config.Host, nil)
 
 	if err != nil {
 		panic(err)
 	}
 
-	request.Header.Add("BLOGIO-KEY", "LALA")
+	request.Header.Add("BLOGIO-KEY", cfgAPI.Config.Key)
 
 	resp, err := client.Do(request)
 	if err != nil {
