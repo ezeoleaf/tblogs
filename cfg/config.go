@@ -1,7 +1,6 @@
 package cfg
 
 import (
-	"flag"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -16,6 +15,8 @@ const (
 )
 
 var config Config
+
+const configPath = "./cfg/config.yml"
 
 type Config struct {
 	API APIConfig `yaml:"api"`
@@ -36,15 +37,16 @@ type APPConfig struct {
 
 func parseFlags() (string, error) {
 	// String that contains the configured configuration path
-	var configPath string
+	// var configPath string
 
-	// Set up a CLI flag called "-config" to allow users
-	// to supply the configuration file
-	flag.StringVar(&configPath, "config", "./cfg/config.yml", "./cfg/config.yml")
+	// // Set up a CLI flag called "-config" to allow users
+	// // to supply the configuration file
+	// flag.StringVar(&configPath, "config", "./cfg/config.yml", "./cfg/config.yml")
 
-	// Actually parse the flags
-	flag.Parse()
+	// // Actually parse the flags
+	// flag.Parse()
 
+	configPath := configPath
 	// Validate the path first
 	if err := validateConfigPath(configPath); err != nil {
 		return "", err
@@ -77,16 +79,27 @@ func GetConfig() Config {
 	return config
 }
 
-func UpdateConfig(c Config) {
-	d, err := yaml.Marshal(&c)
+func updateConfig() {
+	d, err := yaml.Marshal(&config)
 	if err != nil {
 		log.Fatalf("error: %v", err)
 	}
 
-	err = ioutil.WriteFile("changed.yaml", d, 0644)
+	cfgPath, err := parseFlags()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	err = ioutil.WriteFile(cfgPath, d, 0644)
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func UpdateAppConfig(a APPConfig) {
+	config.APP = a
+
+	updateConfig()
 }
 
 func Setup() {
@@ -94,8 +107,6 @@ func Setup() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	config = Config{}
 
 	file, err := os.Open(cfgPath)
 	if err != nil {

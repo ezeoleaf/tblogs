@@ -26,7 +26,8 @@ func main() {
 		Help,
 	}
 
-	pHelp := strconv.Itoa(len(slides))
+	pHelp := strconv.Itoa(len(slides) - 1)
+	pHome := "0"
 
 	if appCfg.FirstUse {
 		slides = []Slide{
@@ -34,7 +35,9 @@ func main() {
 			Blogs,
 		}
 		pHelp = "0"
-		//TODO: Update APPConfig
+		pHome = strconv.Itoa(len(slides) - 1)
+		appCfg.FirstUse = false
+		cfg.UpdateAppConfig(appCfg)
 	}
 
 	pages := tview.NewPages()
@@ -53,7 +56,7 @@ func main() {
 			ScrollToHighlight()
 	}
 	goToBlogs := func() {
-		info.Highlight("1").
+		info.Highlight(pHome).
 			ScrollToHighlight()
 	}
 	nextSlide := func() {
