@@ -18,10 +18,23 @@ var app = tview.NewApplication()
 func main() {
 	cfg.Setup()
 
+	appCfg := cfg.GetAPPConfig()
+
 	// The presentation slides.
 	slides := []Slide{
-		Help,
 		Blogs,
+		Help,
+	}
+
+	pHelp := strconv.Itoa(len(slides))
+
+	if appCfg.FirstUse {
+		slides = []Slide{
+			Help,
+			Blogs,
+		}
+		pHelp = "0"
+		//TODO: Update APPConfig
 	}
 
 	pages := tview.NewPages()
@@ -36,7 +49,7 @@ func main() {
 		})
 
 	goToHelp := func() {
-		info.Highlight("0").
+		info.Highlight(pHelp).
 			ScrollToHighlight()
 	}
 	goToBlogs := func() {

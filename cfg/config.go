@@ -31,6 +31,7 @@ type APPConfig struct {
 	SavedBlogs     []int `yaml:"saved_blogs"`
 	SavedPosts     []int `yaml:"saved_posts"`
 	FollowingBlogs []int `yaml:"following_blogs"`
+	FirstUse       bool  `yaml:"first_use"`
 }
 
 func parseFlags() (string, error) {
