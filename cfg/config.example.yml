@@ -1,7 +1,8 @@
 api:
     url: "https://api.dev-blogs.tech/api/blogs"
-    key: "LALA"
+    key: "TEST"
 app:
     saved_blogs: []
     saved_posts: []
     following_blogs: []
+    first_time: true
