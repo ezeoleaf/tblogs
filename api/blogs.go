@@ -28,7 +28,7 @@ func GetBlogs() Blogs {
 
 	client := &http.Client{}
 
-	cfgAPI := cfg.GetConfig().API
+	cfgAPI := cfg.GetAPIConfig()
 
 	request, err := http.NewRequest("GET", cfgAPI.Host, nil)
 
