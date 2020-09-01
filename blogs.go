@@ -1,11 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"log"
-	"os/exec"
-	"runtime"
-
 	"github.com/ezeoleaf/tblogs/api"
 	"github.com/gdamore/tcell"
 	"github.com/pkg/browser"
@@ -108,18 +103,16 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		listPosts.Clear()
 		blogID := b.Blogs[x].ID
 		posts := api.GetPostsByBlog(blogID)
-		// code.Clear()
 		for _, post := range posts.Posts {
 			listPosts.AddItem(post.Title, post.Published, '-', func() {
-				// openBrowser(post.Link) // Other posibility
-				browser.OpenURL(post.Link)
 				return
 			})
-
-			listPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
-
-			})
 		}
+
+		listPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
+			post := posts.Posts[x]
+			browser.OpenURL(post.Link)
+		})
 		app.SetFocus(listPosts)
 	})
 
@@ -131,20 +124,20 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 }
 
 // Backup version
-func openBrowser(url string) {
-	var err error
+// func openBrowser(url string) {
+// 	var err error
 
-	switch runtime.GOOS {
-	case "linux":
-		err = exec.Command("xdg-open", url).Start()
-	case "windows":
-		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
-	case "darwin":
-		err = exec.Command("open", url).Start()
-	default:
-		err = fmt.Errorf("unsupported platform")
-	}
-	if err != nil {
-		log.Fatal(err)
-	}
-}
+// 	switch runtime.GOOS {
+// 	case "linux":
+// 		err = exec.Command("xdg-open", url).Start()
+// 	case "windows":
+// 		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
+// 	case "darwin":
+// 		err = exec.Command("open", url).Start()
+// 	default:
+// 		err = fmt.Errorf("unsupported platform")
+// 	}
+// 	if err != nil {
+// 		log.Fatal(err)
+// 	}
+// }
