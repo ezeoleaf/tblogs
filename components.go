@@ -2,6 +2,12 @@ package main
 
 import "github.com/rivo/tview"
 
+const (
+	emptyRune  = ' '
+	savedRune  = 's'
+	followRune = 'f'
+)
+
 var emptyFunc = func() {
 	return
 }

@@ -24,10 +24,10 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 
 			blog := b.Blogs[x]
 
-			r := ' '
+			r := emptyRune
 			isIn, ix := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
 			if !isIn {
-				r = 'f'
+				r = followRune
 				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs, blog.ID)
 			} else {
 				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs[:ix], appCfg.FollowingBlogs[ix+1:]...)
@@ -39,12 +39,13 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		}
 		return event
 	})
+
 	for _, blog := range b.Blogs {
 		appCfg := cfg.GetAPPConfig()
-		r := ' '
+		r := emptyRune
 		isIn, _ := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
 		if isIn {
-			r = 'f'
+			r = followRune
 		}
 		listBlogs.AddItem(blog.Name, blog.Company, r, emptyFunc)
 	}
@@ -59,10 +60,10 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		posts := api.GetPostsByBlog(blogID)
 		appCfg := cfg.GetAPPConfig()
 		for _, post := range posts.Posts {
-			r := ' '
+			r := emptyRune
 			isIn, _ := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 			if isIn {
-				r = 's'
+				r = savedRune
 			}
 			listPosts.AddItem(post.Title, post.Published, r, emptyFunc)
 		}
@@ -80,10 +81,10 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 
 				post := posts.Posts[x]
 
-				r := ' '
+				r := emptyRune
 				isIn, ix := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 				if !isIn {
-					r = 's'
+					r = savedRune
 					appCfg.SavedPosts = append(appCfg.SavedPosts, post)
 				} else {
 					appCfg.SavedPosts = append(appCfg.SavedPosts[:ix], appCfg.SavedPosts[ix+1:]...)

@@ -22,14 +22,12 @@ func Home(nextSlide func()) (title string, content tview.Primitive) {
 		posts := api.GetPosts(appCfg.FollowingBlogs)
 
 		for _, post := range posts.Posts {
-			r := ' '
+			r := emptyRune
 			isIn, _ := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 			if isIn {
-				r = 's'
+				r = savedRune
 			}
-			listHome.AddItem(post.Title, post.Blog+" - "+post.Published, r, func() {
-				return
-			})
+			listHome.AddItem(post.Title, post.Blog+" - "+post.Published, r, emptyFunc)
 		}
 
 		listHome.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
@@ -45,22 +43,17 @@ func Home(nextSlide func()) (title string, content tview.Primitive) {
 
 				post := posts.Posts[x]
 
-				r := ' '
+				r := emptyRune
 				isIn, ix := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 				if !isIn {
-					r = 's'
+					r = savedRune
 					appCfg.SavedPosts = append(appCfg.SavedPosts, post)
-					cfg.UpdateAppConfig(appCfg)
 				} else {
 					appCfg.SavedPosts = append(appCfg.SavedPosts[:ix], appCfg.SavedPosts[ix+1:]...)
-					cfg.UpdateAppConfig(appCfg)
 				}
+				cfg.UpdateAppConfig(appCfg)
 
-				listHome.RemoveItem(x)
-				listHome.InsertItem(x, post.Title, post.Blog+" - "+post.Published, r, func() {
-					return
-				})
-				listHome.SetCurrentItem(x)
+				updateItemList(listHome, x, post.Title, post.Blog+" - "+post.Published, r, emptyFunc)
 				generateSavedPosts()
 				return nil
 			}
