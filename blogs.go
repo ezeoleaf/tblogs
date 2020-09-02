@@ -11,11 +11,10 @@ import (
 
 func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 
-	listBlogs := tview.NewList()
+	listBlogs := getList()
 
 	b := api.GetBlogs()
 
-	listBlogs.SetBorderPadding(1, 1, 2, 2)
 	listBlogs.ShowSecondaryText(false)
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlF {
@@ -40,6 +39,7 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 			listBlogs.InsertItem(x, blog.Name, blog.Company, r, func() {
 				return
 			})
+			listBlogs.SetCurrentItem(x)
 			return nil
 		}
 		return event
@@ -56,8 +56,7 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		})
 	}
 
-	listPosts := tview.NewList()
-	listPosts.SetBorderPadding(1, 1, 2, 2)
+	listPosts := getList()
 	listPosts.SetDoneFunc(func() {
 		app.SetFocus(listBlogs)
 	})
@@ -105,6 +104,8 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 				listPosts.InsertItem(x, post.Title, post.Published, r, func() {
 					return
 				})
+				listPosts.SetCurrentItem(x)
+				generateSavedPosts()
 				return nil
 			}
 			return event

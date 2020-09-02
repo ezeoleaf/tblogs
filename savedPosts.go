@@ -8,13 +8,14 @@ import (
 	"github.com/rivo/tview"
 )
 
-func SavedPosts(nextSlide func()) (title string, content tview.Primitive) {
-	listSavedPosts := tview.NewList()
+var listSavedPosts *tview.List
 
+func generateSavedPosts() {
 	appCfg := cfg.GetAPPConfig()
 
 	if len(appCfg.SavedPosts) == 0 {
 		listSavedPosts.AddItem("You don't have saved posts", "Try save them using Ctrl+S", ' ', nil)
+
 	} else {
 		listSavedPosts.Clear()
 
@@ -39,6 +40,9 @@ func SavedPosts(nextSlide func()) (title string, content tview.Primitive) {
 		listSavedPosts.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 			if event.Key() == tcell.KeyCtrlS {
 				appCfg := cfg.GetAPPConfig()
+				if len(appCfg.SavedPosts) == 0 {
+					return nil
+				}
 
 				x := listSavedPosts.GetCurrentItem()
 
@@ -46,14 +50,21 @@ func SavedPosts(nextSlide func()) (title string, content tview.Primitive) {
 				cfg.UpdateAppConfig(appCfg)
 
 				listSavedPosts.RemoveItem(x)
-				// listSavedPosts.InsertItem(x, post.Title, post.Blog+" - "+post.Published, '-', func() {
-				// 	return
-				// })
+				if len(appCfg.SavedPosts) == 0 {
+					generateSavedPosts()
+				}
+				listSavedPosts.SetCurrentItem(x)
 				return nil
 			}
 			return event
 		})
 	}
+}
+
+func SavedPosts(nextSlide func()) (title string, content tview.Primitive) {
+	listSavedPosts = getList()
+
+	generateSavedPosts()
 
 	return "Saved Posts", tview.NewFlex().
 		AddItem(tview.NewFlex().

@@ -10,7 +10,7 @@ import (
 )
 
 func Home(nextSlide func()) (title string, content tview.Primitive) {
-	listHome := tview.NewList()
+	listHome := getList()
 
 	appCfg := cfg.GetAPPConfig()
 
@@ -60,6 +60,8 @@ func Home(nextSlide func()) (title string, content tview.Primitive) {
 				listHome.InsertItem(x, post.Title, post.Blog+" - "+post.Published, r, func() {
 					return
 				})
+				listHome.SetCurrentItem(x)
+				generateSavedPosts()
 				return nil
 			}
 			return event

@@ -21,13 +21,12 @@ const logo = `
 
 const (
 	subtitle   = `tblogs - Read development blogs from the terminal`
-	navigation = `Ctrl-B: Blogs    Ctrl-H: Home    Ctrl-P: Posts    Ctrl-C: Exit`
+	navigation = `Ctrl-B: Blogs    Ctrl-H: Help    Ctrl-P: Saved Posts    Ctrl-C: Exit    Ctrl-T: Home`
+	shortcuts  = `Ctrl-S: Save Post    Ctrl-F: Follow Blog`
 	mouse      = `(or use your mouse)`
 )
 
-// Cover returns the cover page.
 func Help(nextSlide func()) (title string, content tview.Primitive) {
-	// What's the size of the logo?
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
 	logoHeight := len(lines)
@@ -49,6 +48,7 @@ func Help(nextSlide func()) (title string, content tview.Primitive) {
 		AddText(subtitle, true, tview.AlignCenter, tcell.ColorWhite).
 		AddText("", true, tview.AlignCenter, tcell.ColorWhite).
 		AddText(navigation, true, tview.AlignCenter, tcell.ColorDarkMagenta).
+		AddText(shortcuts, true, tview.AlignCenter, tcell.ColorDarkMagenta).
 		AddText(mouse, true, tview.AlignCenter, tcell.ColorDarkMagenta)
 
 	// Create a Flex layout that centers the logo and subtitle.
