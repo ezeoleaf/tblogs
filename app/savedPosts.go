@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"github.com/ezeoleaf/tblogs/cfg"

@@ -2,6 +2,7 @@ package cfg
 
 import (
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"os"
@@ -81,10 +82,38 @@ func UpdateAppConfig(a models.APPConfig) {
 	updateConfig()
 }
 
+func setNewFile() (string, error) {
+	from, err := os.Open("./cfg/config.example.yml")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer from.Close()
+
+	to, err := os.OpenFile(configPath, os.O_RDWR|os.O_CREATE, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer to.Close()
+
+	_, err = io.Copy(to, from)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return parseFlags()
+}
+
 func Setup() {
 	cfgPath, err := parseFlags()
 	if err != nil {
-		log.Fatal(err)
+		log.Println(err)
+	}
+
+	if cfgPath == "" {
+		cfgPath, err = setNewFile()
+		if err != nil {
+			log.Fatal(err)
+		}
 	}
 
 	file, err := os.Open(cfgPath)
