@@ -22,22 +22,16 @@ func main() {
 
 	// The presentation slides.
 	slides := []Slide{
+		Home,
 		Blogs,
-		Help,
 	}
 
-	pHelp := strconv.Itoa(len(slides) - 1)
-	pHome := "0"
-
 	if appCfg.FirstUse {
-		slides = []Slide{
-			Help,
-			Blogs,
-		}
-		pHelp = "0"
-		pHome = strconv.Itoa(len(slides) - 1)
+		slides = append([]Slide{Help}, slides...)
 		appCfg.FirstUse = false
 		cfg.UpdateAppConfig(appCfg)
+	} else {
+		slides = append(slides, Help)
 	}
 
 	pages := tview.NewPages()
@@ -52,25 +46,30 @@ func main() {
 		})
 
 	goToHelp := func() {
-		info.Highlight(pHelp).
+		info.Highlight("Help").
 			ScrollToHighlight()
 	}
 	goToBlogs := func() {
-		info.Highlight(pHome).
+		info.Highlight("Blogs").
+			ScrollToHighlight()
+	}
+	goToHome := func() {
+		info.Highlight("Home").
 			ScrollToHighlight()
 	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
+		fmt.Println(slide)
 		info.Highlight(strconv.Itoa(slide)).
 			ScrollToHighlight()
 	}
 	for index, slide := range slides {
 		title, primitive := slide(nextSlide)
-		pages.AddPage(strconv.Itoa(index), primitive, true, index == 0)
+		pages.AddPage(title, primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
 	}
-	info.Highlight("0")
+	info.Highlight("Home")
 
 	// Create the main layout.
 	layout := tview.NewFlex().
@@ -80,25 +79,18 @@ func main() {
 
 	// Shortcuts to navigate the slides.
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		// if event.Key() == tcell.KeyEnter {
-		// 	return nil
-		// }
 		if event.Key() == tcell.KeyCtrlH {
 			goToHelp()
 			return nil
 		} else if event.Key() == tcell.KeyCtrlB {
 			goToBlogs()
 			return nil
+		} else if event.Key() == tcell.KeyCtrlT {
+			goToHome()
+			return nil
 		}
 		return event
 	})
-
-	// app.SetMouseCapture(func(event *tcell.EventMouse, mouseAction tview.MouseAction) (*tcell.EventMouse, tview.MouseAction) {
-	// 	if mouseAction == tview.MouseLeftClick {
-	// 		return nil, mouseAction
-	// 	}
-	// 	return event, mouseAction
-	// })
 
 	// Start the application.
 	if err := app.SetRoot(layout, true).EnableMouse(true).Run(); err != nil {

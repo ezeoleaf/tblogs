@@ -7,39 +7,17 @@ import (
 	"net/http"
 	"strings"
 	"time"
+
+	"github.com/ezeoleaf/tblogs/models"
 )
 
-type Post struct {
-	Title       string     `json:"title"`
-	Content     string     `json:"content"`
-	Blog        string     `json:"blog"`
-	BlogID      int64      `json:"blog_id"`
-	Published   string     `json:"published"`
-	PublishedAt *time.Time `json:"published_at"`
-	Link        string     `json:"link"`
-	Hash        string     `json:"hash"`
-}
-
-var posts map[int]PostCache
+var posts map[int]models.PostCache
 
 const defaultTime = 4
 
 // var PostsCache []PostsList
 
-type PostCache struct {
-	Posts       Posts
-	DateUpdated time.Time
-}
-
-type Posts struct {
-	Posts []Post `json:"posts"`
-}
-
-type PostRequest struct {
-	Blogs []int `json:"blogs"`
-}
-
-func GetPostsByBlog(blogID int) Posts {
+func GetPostsByBlog(blogID int) models.Posts {
 
 	if len(posts[blogID].Posts.Posts) > 0 {
 		d := time.Now()
@@ -50,22 +28,30 @@ func GetPostsByBlog(blogID int) Posts {
 		}
 	}
 
-	pr := PostRequest{Blogs: []int{blogID}}
-
 	if len(posts) == 0 {
-		posts = make(map[int]PostCache)
+		posts = make(map[int]models.PostCache)
 	}
 
-	postsResp := GetPosts(pr)
+	pr := models.PostRequest{Blogs: []int{blogID}}
 
-	pc := PostCache{Posts: postsResp, DateUpdated: time.Now()}
+	postsResp := fetchPosts(pr)
+
+	pc := models.PostCache{Posts: postsResp, DateUpdated: time.Now()}
 
 	posts[blogID] = pc
 
 	return postsResp
 }
 
-func GetPosts(reqPost PostRequest) Posts {
+func GetPosts(blogs []int) models.Posts {
+	pr := models.PostRequest{Blogs: blogs}
+
+	postsResp := fetchPosts(pr)
+
+	return postsResp
+}
+
+func fetchPosts(reqPost models.PostRequest) models.Posts {
 	rJSON, err := json.Marshal(reqPost)
 	if err != nil {
 		panic(err)
@@ -94,7 +80,7 @@ func GetPosts(reqPost PostRequest) Posts {
 		panic(err)
 	}
 
-	posts := Posts{}
+	posts := models.Posts{}
 	err = json.Unmarshal(body, &posts)
 	if err != nil {
 		panic(err)

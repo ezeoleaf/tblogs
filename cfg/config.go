@@ -6,34 +6,13 @@ import (
 	"log"
 	"os"
 
+	"github.com/ezeoleaf/tblogs/models"
 	"gopkg.in/yaml.v2"
 )
 
-const (
-	api = "API"
-	app = "APP"
-)
-
-var config Config
+var config models.Config
 
 const configPath = "./cfg/config.yml"
-
-type Config struct {
-	API APIConfig `yaml:"api"`
-	APP APPConfig `yaml:"app"`
-}
-
-type APIConfig struct {
-	Host string `yaml:"url"`
-	Key  string `yaml:"key"`
-}
-
-type APPConfig struct {
-	SavedBlogs     []int `yaml:"saved_blogs"`
-	SavedPosts     []int `yaml:"saved_posts"`
-	FollowingBlogs []int `yaml:"following_blogs"`
-	FirstUse       bool  `yaml:"first_use"`
-}
 
 func parseFlags() (string, error) {
 	// String that contains the configured configuration path
@@ -67,15 +46,15 @@ func validateConfigPath(path string) error {
 	return nil
 }
 
-func GetAPPConfig() APPConfig {
+func GetAPPConfig() models.APPConfig {
 	return config.APP
 }
 
-func GetAPIConfig() APIConfig {
+func GetAPIConfig() models.APIConfig {
 	return config.API
 }
 
-func GetConfig() Config {
+func GetConfig() models.Config {
 	return config
 }
 
@@ -96,7 +75,7 @@ func updateConfig() {
 	}
 }
 
-func UpdateAppConfig(a APPConfig) {
+func UpdateAppConfig(a models.APPConfig) {
 	config.APP = a
 
 	updateConfig()

@@ -66,13 +66,18 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 	listPosts.SetDoneFunc(func() {
 		app.SetFocus(listBlogs)
 	})
-
 	listBlogs.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
 		listPosts.Clear()
 		blogID := b.Blogs[x].ID
 		posts := api.GetPostsByBlog(blogID)
+		appCfg := cfg.GetAPPConfig()
 		for _, post := range posts.Posts {
-			listPosts.AddItem(post.Title, post.Published, '-', func() {
+			r := ' '
+			isIn, _ := helpers.IsHash(post.Hash, appCfg.SavedPosts)
+			if isIn {
+				r = 's'
+			}
+			listPosts.AddItem(post.Title, post.Published, r, func() {
 				return
 			})
 		}
@@ -80,6 +85,34 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		listPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
 			post := posts.Posts[x]
 			browser.OpenURL(post.Link)
+		})
+
+		listPosts.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+			if event.Key() == tcell.KeyCtrlS {
+				appCfg := cfg.GetAPPConfig()
+
+				x := listPosts.GetCurrentItem()
+
+				post := posts.Posts[x]
+
+				r := ' '
+				isIn, ix := helpers.IsHash(post.Hash, appCfg.SavedPosts)
+				if !isIn {
+					r = 's'
+					appCfg.SavedPosts = append(appCfg.SavedPosts, post)
+					cfg.UpdateAppConfig(appCfg)
+				} else {
+					appCfg.SavedPosts = append(appCfg.SavedPosts[:ix], appCfg.SavedPosts[ix+1:]...)
+					cfg.UpdateAppConfig(appCfg)
+				}
+
+				listPosts.RemoveItem(x)
+				listPosts.InsertItem(x, post.Title, post.Published, r, func() {
+					return
+				})
+				return nil
+			}
+			return event
 		})
 		app.SetFocus(listPosts)
 	})

@@ -5,22 +5,14 @@ import (
 	"io/ioutil"
 	"net/http"
 
+	"github.com/ezeoleaf/tblogs/models"
+
 	"github.com/ezeoleaf/tblogs/cfg"
 )
 
-type Blog struct {
-	ID      int    `json:"id"`
-	Name    string `json:"name"`
-	Company string `json:"company"`
-	Feed    string `json:"feed"`
-}
-type Blogs struct {
-	Blogs []Blog `json:"blogs"`
-}
+var blogs models.Blogs
 
-var blogs Blogs
-
-func GetBlogs() Blogs {
+func GetBlogs() models.Blogs {
 
 	if len(blogs.Blogs) > 0 {
 		return blogs
@@ -50,7 +42,7 @@ func GetBlogs() Blogs {
 		panic(err)
 	}
 
-	blogs = Blogs{}
+	blogs = models.Blogs{}
 	err = json.Unmarshal(body, &blogs)
 	if err != nil {
 		panic(err)
