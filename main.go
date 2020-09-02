@@ -71,7 +71,7 @@ func main() {
 	for index, slide := range slides {
 		title, primitive := slide(nextSlide)
 		pages.AddPage(title, primitive, true, index == 0)
-		fmt.Fprintf(info, `%d ["%d"][darkcyan]%s[white][""]  `, index+1, index, title)
+		fmt.Fprintf(info, `%d ["%s"][darkcyan]%s[white][""]  `, index+1, title, title)
 	}
 	info.Highlight("Home")
 
