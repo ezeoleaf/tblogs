@@ -23,6 +23,7 @@ func main() {
 	// The presentation slides.
 	slides := []Slide{
 		Home,
+		SavedPosts,
 		Blogs,
 	}
 
@@ -57,10 +58,13 @@ func main() {
 		info.Highlight("Home").
 			ScrollToHighlight()
 	}
+	goToSavedPosts := func() {
+		info.Highlight("Saved Posts").
+			ScrollToHighlight()
+	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
-		fmt.Println(slide)
 		info.Highlight(strconv.Itoa(slide)).
 			ScrollToHighlight()
 	}
@@ -87,6 +91,9 @@ func main() {
 			return nil
 		} else if event.Key() == tcell.KeyCtrlT {
 			goToHome()
+			return nil
+		} else if event.Key() == tcell.KeyCtrlP {
+			goToSavedPosts()
 			return nil
 		}
 		return event
