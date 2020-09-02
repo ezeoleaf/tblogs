@@ -11,11 +11,6 @@ import (
 
 func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 
-	code := tview.NewTextView().
-		SetWrap(false).
-		SetDynamicColors(true)
-	code.SetBorderPadding(1, 1, 2, 0)
-
 	listBlogs := tview.NewList()
 
 	b := api.GetBlogs()
