@@ -15,21 +15,18 @@ func generateSavedPosts() {
 
 	if len(appCfg.SavedPosts) == 0 {
 		listSavedPosts.AddItem("You don't have saved posts", "Try save them using Ctrl+S", ' ', nil)
-
 	} else {
 		listSavedPosts.Clear()
 
 		posts := appCfg.SavedPosts
 
 		for _, post := range posts {
-			r := ' '
+			r := emptyRune
 			isIn, _ := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 			if isIn {
-				r = 's'
+				r = savedRune
 			}
-			listSavedPosts.AddItem(post.Title, post.Blog+" - "+post.Published, r, func() {
-				return
-			})
+			listSavedPosts.AddItem(post.Title, post.Blog+" - "+post.Published, r, emptyFunc)
 		}
 
 		listSavedPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {

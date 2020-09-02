@@ -4,43 +4,29 @@ import (
 	"github.com/ezeoleaf/tblogs/api"
 	"github.com/ezeoleaf/tblogs/cfg"
 	"github.com/ezeoleaf/tblogs/helpers"
+	"github.com/ezeoleaf/tblogs/models"
 	"github.com/gdamore/tcell"
 	"github.com/pkg/browser"
 	"github.com/rivo/tview"
 )
 
-func Blogs(nextSlide func()) (title string, content tview.Primitive) {
+var listBlogs *tview.List
+var listPosts *tview.List
+var blogs models.Blogs
 
-	listBlogs := getList()
-
-	b := api.GetBlogs()
+func generateBlogsList() {
+	blogs = api.GetBlogs()
 
 	listBlogs.ShowSecondaryText(false)
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlF {
-			appCfg := cfg.GetAPPConfig()
-
-			x := listBlogs.GetCurrentItem()
-
-			blog := b.Blogs[x]
-
-			r := emptyRune
-			isIn, ix := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
-			if !isIn {
-				r = followRune
-				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs, blog.ID)
-			} else {
-				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs[:ix], appCfg.FollowingBlogs[ix+1:]...)
-			}
-			cfg.UpdateAppConfig(appCfg)
-
-			updateItemList(listBlogs, x, blog.Name, blog.Company, r, emptyFunc)
+			followBlogs()
 			return nil
 		}
 		return event
 	})
 
-	for _, blog := range b.Blogs {
+	for _, blog := range blogs.Blogs {
 		appCfg := cfg.GetAPPConfig()
 		r := emptyRune
 		isIn, _ := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
@@ -50,13 +36,13 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		listBlogs.AddItem(blog.Name, blog.Company, r, emptyFunc)
 	}
 
-	listPosts := getList()
+	listPosts = getList()
 	listPosts.SetDoneFunc(func() {
 		app.SetFocus(listBlogs)
 	})
 	listBlogs.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
 		listPosts.Clear()
-		blogID := b.Blogs[x].ID
+		blogID := blogs.Blogs[x].ID
 		posts := api.GetPostsByBlog(blogID)
 		appCfg := cfg.GetAPPConfig()
 		for _, post := range posts.Posts {
@@ -98,6 +84,33 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		})
 		app.SetFocus(listPosts)
 	})
+}
+
+func followBlogs() {
+	appCfg := cfg.GetAPPConfig()
+
+	x := listBlogs.GetCurrentItem()
+
+	blog := blogs.Blogs[x]
+
+	r := emptyRune
+	isIn, ix := helpers.IsIn(blog.ID, appCfg.FollowingBlogs)
+	if !isIn {
+		r = followRune
+		appCfg.FollowingBlogs = append(appCfg.FollowingBlogs, blog.ID)
+	} else {
+		appCfg.FollowingBlogs = append(appCfg.FollowingBlogs[:ix], appCfg.FollowingBlogs[ix+1:]...)
+	}
+	cfg.UpdateAppConfig(appCfg)
+
+	updateItemList(listBlogs, x, blog.Name, blog.Company, r, emptyFunc)
+	generateHomeList()
+}
+
+func Blogs(nextSlide func()) (title string, content tview.Primitive) {
+	listBlogs = getList()
+
+	generateBlogsList()
 
 	return "Blogs", tview.NewFlex().
 		AddItem(tview.NewFlex().

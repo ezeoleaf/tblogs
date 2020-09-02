@@ -9,9 +9,9 @@ import (
 	"github.com/rivo/tview"
 )
 
-func Home(nextSlide func()) (title string, content tview.Primitive) {
-	listHome := getList()
+var listHome *tview.List
 
+func generateHomeList() {
 	appCfg := cfg.GetAPPConfig()
 
 	if len(appCfg.FollowingBlogs) == 0 {
@@ -56,10 +56,19 @@ func Home(nextSlide func()) (title string, content tview.Primitive) {
 				updateItemList(listHome, x, post.Title, post.Blog+" - "+post.Published, r, emptyFunc)
 				generateSavedPosts()
 				return nil
+			} else if event.Key() == tcell.KeyCtrlR {
+				listHome.Clear()
+				generateHomeList()
 			}
 			return event
 		})
 	}
+}
+
+func Home(nextSlide func()) (title string, content tview.Primitive) {
+	listHome = getList()
+
+	generateHomeList()
 
 	return "Home", tview.NewFlex().
 		AddItem(tview.NewFlex().
