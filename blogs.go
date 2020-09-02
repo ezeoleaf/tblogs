@@ -29,17 +29,12 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 			if !isIn {
 				r = 'f'
 				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs, blog.ID)
-				cfg.UpdateAppConfig(appCfg)
 			} else {
 				appCfg.FollowingBlogs = append(appCfg.FollowingBlogs[:ix], appCfg.FollowingBlogs[ix+1:]...)
-				cfg.UpdateAppConfig(appCfg)
 			}
+			cfg.UpdateAppConfig(appCfg)
 
-			listBlogs.RemoveItem(x)
-			listBlogs.InsertItem(x, blog.Name, blog.Company, r, func() {
-				return
-			})
-			listBlogs.SetCurrentItem(x)
+			updateItemList(listBlogs, x, blog.Name, blog.Company, r, emptyFunc)
 			return nil
 		}
 		return event
@@ -51,9 +46,7 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 		if isIn {
 			r = 'f'
 		}
-		listBlogs.AddItem(blog.Name, blog.Company, r, func() {
-			return
-		})
+		listBlogs.AddItem(blog.Name, blog.Company, r, emptyFunc)
 	}
 
 	listPosts := getList()
@@ -71,9 +64,7 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 			if isIn {
 				r = 's'
 			}
-			listPosts.AddItem(post.Title, post.Published, r, func() {
-				return
-			})
+			listPosts.AddItem(post.Title, post.Published, r, emptyFunc)
 		}
 
 		listPosts.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
@@ -94,17 +85,11 @@ func Blogs(nextSlide func()) (title string, content tview.Primitive) {
 				if !isIn {
 					r = 's'
 					appCfg.SavedPosts = append(appCfg.SavedPosts, post)
-					cfg.UpdateAppConfig(appCfg)
 				} else {
 					appCfg.SavedPosts = append(appCfg.SavedPosts[:ix], appCfg.SavedPosts[ix+1:]...)
-					cfg.UpdateAppConfig(appCfg)
 				}
-
-				listPosts.RemoveItem(x)
-				listPosts.InsertItem(x, post.Title, post.Published, r, func() {
-					return
-				})
-				listPosts.SetCurrentItem(x)
+				cfg.UpdateAppConfig(appCfg)
+				updateItemList(listPosts, x, post.Title, post.Published, r, emptyFunc)
 				generateSavedPosts()
 				return nil
 			}
