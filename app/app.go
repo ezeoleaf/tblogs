@@ -27,9 +27,12 @@ func Start() {
 		Blogs,
 	}
 
+	highlight := "Home"
+
 	if appCfg.FirstUse {
 		slides = append([]Slide{Help}, slides...)
 		appCfg.FirstUse = false
+		highlight = "Help"
 		cfg.UpdateAppConfig(appCfg)
 	} else {
 		slides = append(slides, Help)
@@ -73,7 +76,7 @@ func Start() {
 		pages.AddPage(title, primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%s"][darkcyan]%s[white][""]  `, index+1, title, title)
 	}
-	info.Highlight("Home")
+	info.Highlight(highlight)
 
 	// Create the main layout.
 	layout := tview.NewFlex().
