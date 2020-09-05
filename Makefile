@@ -44,6 +44,7 @@ build:
 	@echo "$$HEADER"
 	@echo "Building..."
 	go build -o bin/${APP}
+	cp ./cfg/config.yml bin/config.yml
 	@echo "Done building"
 
 ## clean: removes old build cruft
