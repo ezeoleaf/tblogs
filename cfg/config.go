@@ -16,16 +16,6 @@ var config models.Config
 const configPath = "./cfg/config.yml"
 
 func parseFlags() (string, error) {
-	// String that contains the configured configuration path
-	// var configPath string
-
-	// // Set up a CLI flag called "-config" to allow users
-	// // to supply the configuration file
-	// flag.StringVar(&configPath, "config", "./cfg/config.yml", "./cfg/config.yml")
-
-	// // Actually parse the flags
-	// flag.Parse()
-
 	configPath := configPath
 	// Validate the path first
 	if err := validateConfigPath(configPath); err != nil {
@@ -47,14 +37,17 @@ func validateConfigPath(path string) error {
 	return nil
 }
 
+// GetAPPConfig returns only the APP config
 func GetAPPConfig() models.APPConfig {
 	return config.APP
 }
 
+// GetAPIConfig returns only the API config for the application
 func GetAPIConfig() models.APIConfig {
 	return config.API
 }
 
+// GetConfig returns the entire config for the application
 func GetConfig() models.Config {
 	return config
 }
@@ -76,6 +69,7 @@ func updateConfig() {
 	}
 }
 
+// UpdateAppConfig receives an AppConfig and save it in the config.yml file
 func UpdateAppConfig(a models.APPConfig) {
 	config.APP = a
 
@@ -103,6 +97,7 @@ func setNewFile() (string, error) {
 	return parseFlags()
 }
 
+// Setup prepare and create the config file for the application
 func Setup() {
 	cfgPath, err := parseFlags()
 	if err != nil {

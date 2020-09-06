@@ -15,8 +15,7 @@ var posts map[int]models.PostCache
 
 const defaultTime = 4
 
-// var PostsCache []PostsList
-
+// GetPostsByBlog returns a list of Posts for a single blog
 func GetPostsByBlog(blogID int) models.Posts {
 
 	if len(posts[blogID].Posts.Posts) > 0 {
@@ -43,6 +42,7 @@ func GetPostsByBlog(blogID int) models.Posts {
 	return postsResp
 }
 
+// GetPosts returns a list of Posts for a list of Blogs using the Blogs ids
 func GetPosts(blogs []int) models.Posts {
 	pr := models.PostRequest{Blogs: blogs}
 

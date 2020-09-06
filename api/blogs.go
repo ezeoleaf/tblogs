@@ -12,6 +12,7 @@ import (
 
 var blogs models.Blogs
 
+// GetBlogs returns a list of Blogs from the Blogio API
 func GetBlogs() models.Blogs {
 
 	if len(blogs.Blogs) > 0 {
