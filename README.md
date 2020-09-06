@@ -1,6 +1,6 @@
 # TBlogs
-[Build Status](https://github.com/ezeoleaf/tblogs/workflows/Go/badge.svg?branch=master)
-[![Go Report Card](https://goreportcard.com/report/github.com/ezeoleaf/tblogs)](https://goreportcard.com/report/github.com/ezeoleaf/tblogs)
+![Build status](https://github.com/ezeoleaf/tblogs/workflows/Go/badge.svg)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ezeoleaf/tblogs)](https://goreportcard.com/report/github.com/ezeoleaf/tblogs)
 [![MPL-2.0 License](https://img.shields.io/github/license/ezeoleaf/tblogs?style=flat-square)](https://github.com/ezeoleaf/tblogs/blob/master/LICENSE)
 
 ## Summary
