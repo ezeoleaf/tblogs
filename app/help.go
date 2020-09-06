@@ -21,12 +21,13 @@ const logo = `
 
 const (
 	subtitle = `tblogs - Read development blogs from the terminal`
-	// navigation = ``
-	mouse = `(or use your mouse)`
+	quote    = `All your blogs are belongs to us`
+	mouse    = `(or use your mouse)`
 )
 
 var shortcuts = []string{"Ctrl-S: Save Post", "Ctrl-F: Follow Blog", "Ctrl-B: Blogs", "Ctrl-H: Help",
-	"Ctrl-P: Saved Posts", "Ctrl-C: Exit", "Ctrl-T: Home"}
+	"Ctrl-P: Saved Posts", "Ctrl-C: Exit", "Ctrl-T: Home", "Enter: Search posts for blog or open browser with post",
+	"Esc: Returns from posts results to blogs list"}
 
 func helpPage(nextSlide func()) (title string, content tview.Primitive) {
 	lines := strings.Split(logo, "\n")
@@ -48,6 +49,8 @@ func helpPage(nextSlide func()) (title string, content tview.Primitive) {
 	frame := tview.NewFrame(tview.NewBox()).
 		SetBorders(0, 0, 0, 0, 0, 0).
 		AddText(subtitle, true, tview.AlignCenter, tcell.ColorWhite).
+		AddText("", true, tview.AlignCenter, tcell.ColorWhite).
+		AddText(quote, true, tview.AlignCenter, tcell.ColorWhite).
 		AddText("", true, tview.AlignCenter, tcell.ColorWhite)
 		// AddText(navigation, true, tview.AlignCenter, tcell.ColorDarkMagenta)
 		// AddText(mouse, true, tview.AlignCenter, tcell.ColorDarkMagenta)

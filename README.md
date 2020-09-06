@@ -7,7 +7,18 @@
 TBlogs is a basic app for your terminal that allows you to read, follow and save posts from development blogs from lots of companies.
 
 ## What It Looks Like
-<p align="center"><img src="images/posts-1.png"></p>
+<p align="center"><img src="images/home.png"></p>
+
+## Other screens
+
+### Help section
+<p align="center"><img src="images/help.png"></p>
+
+### Blogs section
+<p align="center"><img src="images/blogs.png"></p>
+
+### Saved Posts
+<p align="center"><img src="images/saved-posts.png"></p>
 
 ## Install
 You can install by the following set of instructions:
