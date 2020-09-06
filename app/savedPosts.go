@@ -14,7 +14,7 @@ func generateSavedPosts() {
 	appCfg := cfg.GetAPPConfig()
 
 	if len(appCfg.SavedPosts) == 0 {
-		listSavedPosts.AddItem("You don't have saved posts", "Try save them using Ctrl+S", ' ', nil)
+		listSavedPosts.AddItem("You don't have saved posts", "Try save them using Ctrl+S from the Blogs (Ctrl+B) or the Home (Ctrl+T) pages", ' ', nil)
 	} else {
 		listSavedPosts.Clear()
 
@@ -58,7 +58,7 @@ func generateSavedPosts() {
 	}
 }
 
-func SavedPosts(nextSlide func()) (title string, content tview.Primitive) {
+func savedPostsPage(nextSlide func()) (title string, content tview.Primitive) {
 	listSavedPosts = getList()
 
 	generateSavedPosts()

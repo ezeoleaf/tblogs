@@ -107,7 +107,7 @@ func followBlogs() {
 	generateHomeList()
 }
 
-func Blogs(nextSlide func()) (title string, content tview.Primitive) {
+func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 	listBlogs = getList()
 
 	generateBlogsList()

@@ -15,7 +15,7 @@ func generateHomeList() {
 	appCfg := cfg.GetAPPConfig()
 
 	if len(appCfg.FollowingBlogs) == 0 {
-		listHome.AddItem("You're not following blogs", "Try Ctrl+B", ' ', nil)
+		listHome.AddItem("You're not following blogs", "Try follow a blog with Ctrl+F from the Blogs (Ctrl+B) page", ' ', nil)
 	} else {
 		listHome.Clear()
 
@@ -65,7 +65,7 @@ func generateHomeList() {
 	}
 }
 
-func Home(nextSlide func()) (title string, content tview.Primitive) {
+func homePage(nextSlide func()) (title string, content tview.Primitive) {
 	listHome = getList()
 
 	generateHomeList()

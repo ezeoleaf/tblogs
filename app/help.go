@@ -28,7 +28,7 @@ const (
 var shortcuts = []string{"Ctrl-S: Save Post", "Ctrl-F: Follow Blog", "Ctrl-B: Blogs", "Ctrl-H: Help",
 	"Ctrl-P: Saved Posts", "Ctrl-C: Exit", "Ctrl-T: Home"}
 
-func Help(nextSlide func()) (title string, content tview.Primitive) {
+func helpPage(nextSlide func()) (title string, content tview.Primitive) {
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
 	logoHeight := len(lines)

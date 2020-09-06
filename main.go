@@ -5,5 +5,6 @@ import (
 )
 
 func main() {
-	app.Start()
+	a := app.Setup()
+	a.Start()
 }

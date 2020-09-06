@@ -10,32 +10,39 @@ import (
 	"github.com/rivo/tview"
 )
 
-type Slide func(nextSlide func()) (title string, content tview.Primitive)
+type slide func(nextSlide func()) (title string, content tview.Primitive)
 
-// The application.
 var app = tview.NewApplication()
 
-func Start() {
+// App contains the tview application and the layout for the display
+type App struct {
+	App    *tview.Application
+	Layout *tview.Flex
+}
+
+// Setup returns an instance of the application
+func Setup() App {
+
 	cfg.Setup()
 
 	appCfg := cfg.GetAPPConfig()
 
 	// The presentation slides.
-	slides := []Slide{
-		Home,
-		SavedPosts,
-		Blogs,
+	slides := []slide{
+		homePage,
+		savedPostsPage,
+		blogsPage,
 	}
 
 	highlight := "Home"
 
 	if appCfg.FirstUse {
-		slides = append([]Slide{Help}, slides...)
+		slides = append([]slide{helpPage}, slides...)
 		appCfg.FirstUse = false
 		highlight = "Help"
 		cfg.UpdateAppConfig(appCfg)
 	} else {
-		slides = append(slides, Help)
+		slides = append(slides, helpPage)
 	}
 
 	pages := tview.NewPages()
@@ -102,8 +109,14 @@ func Start() {
 		return event
 	})
 
-	// Start the application.
-	if err := app.SetRoot(layout, true).EnableMouse(true).Run(); err != nil {
+	a := App{App: app, Layout: layout}
+
+	return a
+}
+
+// Start launches the app
+func (a App) Start() {
+	if err := a.App.SetRoot(a.Layout, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 }
