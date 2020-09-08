@@ -23,7 +23,7 @@ func GetBlogs() models.Blogs {
 
 	cfgAPI := cfg.GetAPIConfig()
 
-	request, err := http.NewRequest("GET", cfgAPI.Host, nil)
+	request, err := http.NewRequest("GET", cfgAPI.Host+"/blogs", nil)
 
 	if err != nil {
 		panic(err)

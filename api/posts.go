@@ -8,6 +8,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/ezeoleaf/tblogs/cfg"
 	"github.com/ezeoleaf/tblogs/models"
 )
 
@@ -56,17 +57,20 @@ func fetchPosts(reqPost models.PostRequest) models.Posts {
 	if err != nil {
 		panic(err)
 	}
-	// fmt.Println(rJSON)
+
 	client := &http.Client{}
+
+	cfgAPI := cfg.GetAPIConfig()
 
 	payload := strings.NewReader(string(rJSON))
 
-	req, err := http.NewRequest("GET", "https://api.dev-blogs.tech/api/posts", payload)
+	req, err := http.NewRequest("GET", cfgAPI.Host+"/posts", payload)
 
 	if err != nil {
 		fmt.Println(err)
 	}
-	req.Header.Add("blogio-key", "LALA")
+
+	req.Header.Add("BLOGIO-KEY", cfgAPI.Key)
 	req.Header.Add("Content-Type", "application/json")
 
 	resp, err := client.Do(req)

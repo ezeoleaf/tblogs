@@ -1,5 +1,5 @@
 api:
-    url: "https://api.dev-blogs.tech/api/blogs"
+    url: "https://api.dev-blogs.tech/api"
     key: "TEST"
 app:
     saved_posts: []
