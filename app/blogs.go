@@ -113,10 +113,8 @@ func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 	generateBlogsList()
 
 	return "Blogs", tview.NewFlex().
-		AddItem(tview.NewFlex().
-			SetDirection(tview.FlexRow).
-			AddItem(listBlogs, 0, 1, true), 0, 1, true).
-		AddItem(listPosts, 100, 1, false)
+		AddItem(listBlogs, 0, 1, true).
+		AddItem(listPosts, 0, 1, false)
 }
 
 // Backup version
