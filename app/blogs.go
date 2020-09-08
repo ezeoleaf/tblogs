@@ -19,9 +19,12 @@ func generateBlogsList() {
 
 	listBlogs.ShowSecondaryText(false)
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyCtrlF {
+		if event.Key() == tcell.KeyCtrlS {
 			followBlogs()
 			return nil
+		}
+		if event.Key() == tcell.KeyCtrlF {
+			//TODO: Search blogs
 		}
 		return event
 	})

@@ -59,6 +59,8 @@ func generateHomeList() {
 			} else if event.Key() == tcell.KeyCtrlR {
 				listHome.Clear()
 				generateHomeList()
+			} else if event.Key() == tcell.KeyCtrlF {
+				//TODO: Search posts
 			}
 			return event
 		})

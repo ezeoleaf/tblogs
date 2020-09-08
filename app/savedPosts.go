@@ -52,6 +52,8 @@ func generateSavedPosts() {
 				}
 				listSavedPosts.SetCurrentItem(x)
 				return nil
+			} else if event.Key() == tcell.KeyCtrlF {
+				//TODO: Search blogs
 			}
 			return event
 		})
