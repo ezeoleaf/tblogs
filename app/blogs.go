@@ -27,7 +27,7 @@ func generateBlogsList() {
 			followBlogs()
 			return nil
 		} else if event.Key() == tcell.KeyCtrlF {
-			pages.ShowPage("modal")
+			pages.ShowPage(blogsModalName)
 			//TODO: Search blogs
 		}
 		return event
@@ -124,14 +124,8 @@ func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 
 	generateBlogsList()
 
-	modal := tview.NewModal().
-		SetText("Resize the window to see how the grid layout adapts").
-		AddButtons([]string{"Ok"}).SetDoneFunc(func(buttonIndex int, buttonLabel string) {
-		pages.HidePage("modal")
-	})
-
 	pages.AddPage("blogs", blogPage, true, true).
-		AddPage("modal", modal, false, false)
+		AddPage(blogsModalName, blogsModal, false, false)
 
 	return "Blogs", pages
 }
