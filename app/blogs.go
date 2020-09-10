@@ -13,8 +13,12 @@ import (
 var listBlogs *tview.List
 var listPosts *tview.List
 var blogs models.Blogs
+var blogPage *tview.Flex
+var pages *tview.Pages
 
 func generateBlogsList() {
+	blogPage = tview.NewFlex()
+
 	blogs = api.GetBlogs()
 
 	listBlogs.ShowSecondaryText(false)
@@ -22,8 +26,8 @@ func generateBlogsList() {
 		if event.Key() == tcell.KeyCtrlS {
 			followBlogs()
 			return nil
-		}
-		if event.Key() == tcell.KeyCtrlF {
+		} else if event.Key() == tcell.KeyCtrlF {
+			pages.ShowPage("modal")
 			//TODO: Search blogs
 		}
 		return event
@@ -87,6 +91,9 @@ func generateBlogsList() {
 		})
 		app.SetFocus(listPosts)
 	})
+
+	blogPage.AddItem(listBlogs, 0, 1, true).
+		AddItem(listPosts, 0, 1, false)
 }
 
 func followBlogs() {
@@ -111,13 +118,22 @@ func followBlogs() {
 }
 
 func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
+	pages = tview.NewPages()
+
 	listBlogs = getList()
 
 	generateBlogsList()
 
-	return "Blogs", tview.NewFlex().
-		AddItem(listBlogs, 0, 1, true).
-		AddItem(listPosts, 0, 1, false)
+	modal := tview.NewModal().
+		SetText("Resize the window to see how the grid layout adapts").
+		AddButtons([]string{"Ok"}).SetDoneFunc(func(buttonIndex int, buttonLabel string) {
+		pages.HidePage("modal")
+	})
+
+	pages.AddPage("blogs", blogPage, true, true).
+		AddPage("modal", modal, false, false)
+
+	return "Blogs", pages
 }
 
 // Backup version
