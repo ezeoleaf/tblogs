@@ -42,8 +42,10 @@ Then you can simply use it with the shortcuts or with the mouse.
 - `Ctrl + B` opens the Blogs page
 - `Ctrl + T` opens the Home page (T for tblogs)
 - `Ctrl + P` opens the Saved Posts page
-- `Ctrl + F` for follow/unfollow a blog. Once the blog is followed, you will see the posts in your home page
-- `Ctrl + S` save/unsave a posts. After this, you can see it in the saved posts page even if you're not following the blog
+- `Ctrl + S`
+    - Follow/unfollow a blog. Once the blog is followed, you will see the posts in your Home page
+    - Save/unsave a post. After this, you can see it in the Saved Posts page even if you're not following the blog
+- `Ctrl + F` search a blog or post depending on the screen that is selected
 - `Enter`
     - If you have a blog selected from the Blogs page, then you will be able to read the posts
     - If you have a post selected, a browser will display the post
