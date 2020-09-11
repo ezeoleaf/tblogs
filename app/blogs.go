@@ -124,10 +124,17 @@ func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 
 	generateBlogsList()
 
-	pages.AddPage("blogs", blogPage, true, true).
-		AddPage(blogsModalName, blogsModal, false, false)
+	pages.AddPage("blogs", blogPage, true, true)
 
 	return "Blogs", pages
+}
+
+func searchBlogs() {
+
+}
+
+func cancelSearchBlogs() {
+
 }
 
 // Backup version
