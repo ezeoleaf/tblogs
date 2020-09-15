@@ -130,11 +130,11 @@ func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 }
 
 func searchBlogs() {
-
+	//TODO: Add ability to search
 }
 
 func cancelSearchBlogs() {
-
+	//TODO: Add ability to search
 }
 
 // Backup version
