@@ -11,6 +11,7 @@ import (
 
 var listHome *tview.List
 var lastMode bool
+var noPosts bool
 
 func generateHomeList() {
 	appCfg := cfg.GetAPPConfig()
@@ -39,13 +40,26 @@ func generateHomeList() {
 			listHome.AddItem(post.Title, post.Blog+" - "+post.Published, r, emptyFunc)
 		}
 
+		if listHome.GetItemCount() == 0 {
+			noPosts = true
+			listHome.AddItem("There are not new posts", "Disable last mode to read all the posts", noOpenRune, emptyFunc)
+		} else {
+			noPosts = false
+		}
+
 		listHome.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
+			if noPosts {
+				return
+			}
 			post := posts.Posts[x]
 			browser.OpenURL(post.Link)
 		})
 
 		listHome.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 			if event.Key() == tcell.KeyCtrlS {
+				if noPosts {
+					return event
+				}
 				appCfg := cfg.GetAPPConfig()
 
 				x := listHome.GetCurrentItem()

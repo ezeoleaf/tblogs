@@ -6,6 +6,7 @@ const (
 	emptyRune  = ' '
 	savedRune  = 's'
 	followRune = 'f'
+	noOpenRune = 'o'
 )
 
 var emptyFunc = func() {
