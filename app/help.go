@@ -26,6 +26,7 @@ const (
 )
 
 var shortcuts = []string{"Ctrl-S: Save Blog or Post", "Ctrl-F: Search Blogs or Posts", "Ctrl-R: Reload posts in Home page",
+	"Ctrl-L: Toggle posts from last login in Home page",
 	"Ctrl-T: Move to Home page", "Ctrl-B: Move to Blogs page",
 	"Ctrl-H: Move to Help page", "Ctrl-P: Move to Saved Posts page",
 	"Ctrl-C: Close TBlogs", "Enter: Search posts for blog or open browser with post",
