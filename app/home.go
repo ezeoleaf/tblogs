@@ -10,6 +10,7 @@ import (
 )
 
 var listHome *tview.List
+var lastMode bool
 
 func generateHomeList() {
 	appCfg := cfg.GetAPPConfig()
@@ -22,6 +23,14 @@ func generateHomeList() {
 		posts := api.GetPosts(appCfg.FollowingBlogs)
 
 		for _, post := range posts.Posts {
+			if lastMode {
+				if post.PublishedAt == nil {
+					continue
+				}
+				if post.PublishedAt.Before(appCfg.LastLogin) {
+					continue
+				}
+			}
 			r := emptyRune
 			isIn, _ := helpers.IsHash(post.Hash, appCfg.SavedPosts)
 			if isIn {
@@ -61,8 +70,9 @@ func generateHomeList() {
 				generateHomeList()
 			} else if event.Key() == tcell.KeyCtrlF {
 				//TODO: Search posts
-			} else if event.Key() == tcell.KeyCtrlL {
-				//TODO: Search posts
+			} else if event.Key() == tcell.KeyCtrlL { //Only displays the last ones
+				lastMode = !lastMode
+				generateHomeList()
 			}
 			return event
 		})
