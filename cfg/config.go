@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"time"
 
 	"github.com/ezeoleaf/tblogs/models"
 	"gopkg.in/yaml.v2"
@@ -124,4 +125,14 @@ func Setup() {
 	if err := d.Decode(&config); err != nil {
 		panic(err)
 	}
+
+	// Update last login date
+	UpdateLoginDate()
+}
+
+func UpdateLoginDate() {
+	config.APP.LastLogin = config.APP.CurrentLogin
+	config.APP.CurrentLogin = time.Now()
+
+	UpdateAppConfig(config.APP)
 }

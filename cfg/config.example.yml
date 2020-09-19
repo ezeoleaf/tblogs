@@ -5,3 +5,5 @@ app:
     saved_posts: []
     following_blogs: []
     first_use: true
+    last_login: null
+    current_login: null
