@@ -13,6 +13,7 @@ import (
 )
 
 var config models.Config
+var loc, _ = time.LoadLocation("UTC")
 
 const configPath = "./cfg/config.yml"
 
@@ -130,11 +131,13 @@ func Setup() {
 	UpdateLoginDate()
 }
 
-// UpdateLoginDate update the current login date with time.Now()
+// UpdateLoginDate update the current login date with time.Now() in UTC
 // It also saves the last login with the value of current login before updating it
 func UpdateLoginDate() {
+	now := time.Now().In(loc)
+
 	config.APP.LastLogin = config.APP.CurrentLogin
-	config.APP.CurrentLogin = time.Now()
+	config.APP.CurrentLogin = now
 
 	UpdateAppConfig(config.APP)
 }
