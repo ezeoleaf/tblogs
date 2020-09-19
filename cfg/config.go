@@ -130,6 +130,8 @@ func Setup() {
 	UpdateLoginDate()
 }
 
+// UpdateLoginDate update the current login date with time.Now()
+// It also saves the last login with the value of current login before updating it
 func UpdateLoginDate() {
 	config.APP.LastLogin = config.APP.CurrentLogin
 	config.APP.CurrentLogin = time.Now()
