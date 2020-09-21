@@ -70,5 +70,5 @@ func helpPage(nextSlide func()) (title string, content tview.Primitive) {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-	return "Help", flex
+	return helpSection, flex
 }

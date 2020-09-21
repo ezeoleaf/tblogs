@@ -98,7 +98,7 @@ func homePage(nextSlide func()) (title string, content tview.Primitive) {
 
 	generateHomeList()
 
-	return "Home", tview.NewFlex().
+	return homeSection, tview.NewFlex().
 		AddItem(tview.NewFlex().
 			SetDirection(tview.FlexRow).
 			AddItem(listHome, 0, 1, true), 0, 1, true)

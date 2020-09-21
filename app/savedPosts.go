@@ -65,7 +65,7 @@ func savedPostsPage(nextSlide func()) (title string, content tview.Primitive) {
 
 	generateSavedPosts()
 
-	return "Saved Posts", tview.NewFlex().
+	return savedPostsSection, tview.NewFlex().
 		AddItem(tview.NewFlex().
 			SetDirection(tview.FlexRow).
 			AddItem(listSavedPosts, 0, 1, true), 0, 1, true)

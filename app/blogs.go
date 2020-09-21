@@ -126,7 +126,7 @@ func blogsPage(nextSlide func()) (title string, content tview.Primitive) {
 
 	pages.AddPage("blogs", blogPage, true, true)
 
-	return "Blogs", pages
+	return blogsSection, pages
 }
 
 func searchBlogs() {
