@@ -32,6 +32,7 @@ func Setup() App {
 		homePage,
 		savedPostsPage,
 		blogsPage,
+		settingsPage,
 	}
 
 	highlight := "Home"
