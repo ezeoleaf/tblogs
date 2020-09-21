@@ -73,6 +73,10 @@ func Setup() App {
 		info.Highlight("Saved Posts").
 			ScrollToHighlight()
 	}
+	goToSettings := func() {
+		info.Highlight("Saved Posts").
+			ScrollToHighlight()
+	}
 	nextSlide := func() {
 		slide, _ := strconv.Atoi(info.GetHighlights()[0])
 		slide = (slide + 1) % len(slides)
@@ -105,6 +109,9 @@ func Setup() App {
 			return nil
 		} else if event.Key() == tcell.KeyCtrlP {
 			goToSavedPosts()
+			return nil
+		} else if event.Key() == tcell.KeyCtrlX {
+			goToSettings()
 			return nil
 		}
 		return event
