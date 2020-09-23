@@ -78,6 +78,12 @@ func UpdateAppConfig(a models.APPConfig) {
 	updateConfig()
 }
 
+// ResetAPPConfig reset the entire AppConfig and return to the initial state
+func ResetAPPConfig() {
+	config.APP = models.APPConfig{}
+	updateConfig()
+}
+
 func setNewFile() (string, error) {
 	from, err := os.Open("./cfg/config.example.yml")
 	if err != nil {

@@ -10,6 +10,8 @@ import (
 func settingsPage(nextSlide func()) (title string, content tview.Primitive) {
 	appCfg := cfg.GetAPPConfig()
 
+	pages = tview.NewPages()
+
 	settingPage := tview.NewFlex()
 
 	noTextAccept := func(s string, r rune) bool {
@@ -19,10 +21,21 @@ func settingsPage(nextSlide func()) (title string, content tview.Primitive) {
 	f := tview.NewForm().
 		AddInputField("Following blogs:", strconv.Itoa(len(appCfg.FollowingBlogs)), 5, noTextAccept, nil).
 		AddInputField("Saved posts:", strconv.Itoa(len(appCfg.SavedPosts)), 5, noTextAccept, nil).
-		AddButton("Reset", nextSlide)
+		AddButton("Reset", func() {
+			pages.ShowPage(resetModalName)
+		})
 	f.SetBorder(false).SetTitle("Settings")
 
 	settingPage.AddItem(f, 0, 1, true)
 
-	return settingsSection, settingPage
+	pages.AddPage("settings", settingPage, true, true).AddPage(resetModalName, resetModal, true, false)
+
+	return settingsSection, pages
+}
+
+func resetApp(buttonIndex int, buttonLabel string) {
+	if buttonLabel == "Yes" {
+		cfg.ResetAPPConfig()
+	}
+	pages.HidePage(resetModalName)
 }
