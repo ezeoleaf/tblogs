@@ -36,6 +36,7 @@ func settingsPage(nextSlide func()) (title string, content tview.Primitive) {
 func resetApp(buttonIndex int, buttonLabel string) {
 	if buttonLabel == "Yes" {
 		cfg.ResetAPPConfig()
+		pages.HidePage(resetModalName)
 	}
 	pages.HidePage(resetModalName)
 }
