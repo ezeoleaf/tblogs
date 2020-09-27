@@ -23,4 +23,5 @@ type APPConfig struct {
 	FirstUse       bool      `yaml:"first_use"`
 	LastLogin      time.Time `yaml:"last_login"`
 	CurrentLogin   time.Time `yaml:"current_login"`
+	FilteredWords  []string  `yaml:"filtered_words"`
 }

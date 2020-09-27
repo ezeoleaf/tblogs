@@ -7,3 +7,4 @@ app:
     first_use: true
     last_login: null
     current_login: null
+    filtered_words: []
