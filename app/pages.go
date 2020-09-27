@@ -9,6 +9,7 @@ import (
 )
 
 var info *tview.TextView
+var pages *tview.Pages
 
 const (
 	homeSection       = "Home"

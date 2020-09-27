@@ -14,7 +14,6 @@ var listBlogs *tview.List
 var listPosts *tview.List
 var blogs models.Blogs
 var blogPage *tview.Flex
-var pages *tview.Pages
 
 func generateBlogsList() {
 	blogPage = tview.NewFlex()
