@@ -7,28 +7,37 @@ import (
 	"github.com/rivo/tview"
 )
 
-func settingsPage(nextSlide func()) (title string, content tview.Primitive) {
+var settingsComponent *tview.Flex
+var formComponent *tview.Form
+
+func generateSettingsPage() {
 	appCfg := cfg.GetAPPConfig()
 
-	pages = tview.NewPages()
-
-	settingPage := tview.NewFlex()
+	settingsComponent = tview.NewFlex()
 
 	noTextAccept := func(s string, r rune) bool {
 		return false
 	}
 
-	f := tview.NewForm().
-		AddInputField("Following blogs:", strconv.Itoa(len(appCfg.FollowingBlogs)), 5, noTextAccept, nil).
+	formComponent.Clear(true)
+
+	formComponent.AddInputField("Following blogs:", strconv.Itoa(len(appCfg.FollowingBlogs)), 5, noTextAccept, nil).
 		AddInputField("Saved posts:", strconv.Itoa(len(appCfg.SavedPosts)), 5, noTextAccept, nil).
 		AddButton("Reset", func() {
 			pages.ShowPage(resetModalName)
-		})
-	f.SetBorder(false).SetTitle("Settings")
+		}).
+		SetBorder(false).SetTitle("Settings")
 
-	settingPage.AddItem(f, 0, 1, true)
+	settingsComponent.AddItem(formComponent, 0, 1, true)
 
-	pages.AddPage("settings", settingPage, true, true).AddPage(resetModalName, resetModal, true, false)
+}
+
+func settingsPage(nextSlide func()) (title string, content tview.Primitive) {
+	pages = tview.NewPages()
+	formComponent = tview.NewForm()
+	generateSettingsPage()
+
+	pages.AddPage("settings", settingsComponent, true, true).AddPage(resetModalName, resetModal, true, false)
 
 	return settingsSection, pages
 }
@@ -41,6 +50,7 @@ func resetApp(buttonIndex int, buttonLabel string) {
 		listPosts.Clear()
 		generateHomeList()
 		generateBlogsList()
+		generateSettingsPage()
 		pages.HidePage(resetModalName)
 	}
 	pages.HidePage(resetModalName)
