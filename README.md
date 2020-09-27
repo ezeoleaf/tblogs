@@ -7,7 +7,7 @@
 TBlogs is a basic app for your terminal that allows you to read, follow and save posts from development blogs from lots of companies.
 
 ## What It Looks Like
-<p align="center"><img src="images/home.png"></p>
+![TBlogs Demo](images/tblogs.gif)
 
 ## Other screens
 
