@@ -4,6 +4,7 @@ import (
 	"strconv"
 
 	"github.com/ezeoleaf/tblogs/cfg"
+	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
 )
 
@@ -28,7 +29,37 @@ func generateSettingsPage() {
 		}).
 		SetBorder(false).SetTitle("Settings")
 
-	settingsComponent.AddItem(formComponent, 0, 1, true)
+	table := tview.NewTable().
+		SetFixed(1, 1)
+
+	// Header
+	for column, cell := range []string{"ID", "Word", "Posts filtered"} {
+		color := tcell.ColorWhite
+		align := tview.AlignCenter
+		tableCell := tview.NewTableCell(cell).
+			SetTextColor(color).
+			SetAlign(align).
+			SetSelectable(false)
+		if column >= 1 && column <= 3 {
+			tableCell.SetExpansion(1)
+		}
+		table.SetCell(0, column, tableCell)
+	}
+
+	table.SetBorder(false).SetTitle("Filtered words")
+
+	code := tview.NewTextView().
+		SetWrap(false).
+		SetDynamicColors(true)
+	code.SetBorderPadding(1, 1, 2, 0)
+
+	settingsComponent.AddItem(tview.NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(formComponent, 10, 1, true).
+		AddItem(table, 20, 0, false), 0, 1, true).
+		AddItem(code, 56, 1, false)
+	// AddItem(formComponent, 0, 1, true).
+	// 	AddItem(formComponent, 0, 1, false)
 
 }
 
