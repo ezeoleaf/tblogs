@@ -32,21 +32,17 @@ func Setup() App {
 
 	// Shortcuts to navigate the slides.
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-		if event.Key() == tcell.KeyCtrlH {
+		switch ek := event.Key(); ek {
+		case tcell.KeyCtrlH:
 			goToSection(helpSection)
-			return nil
-		} else if event.Key() == tcell.KeyCtrlB {
+		case tcell.KeyCtrlB:
 			goToSection(blogsSection)
-			return nil
-		} else if event.Key() == tcell.KeyCtrlT {
+		case tcell.KeyCtrlT:
 			goToSection(homeSection)
-			return nil
-		} else if event.Key() == tcell.KeyCtrlP {
+		case tcell.KeyCtrlP:
 			goToSection(savedPostsSection)
-			return nil
-		} else if event.Key() == tcell.KeyCtrlX {
+		case tcell.KeyCtrlX:
 			goToSection(settingsSection)
-			return nil
 		}
 		return event
 	})
