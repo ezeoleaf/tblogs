@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"strconv"
 
-	"github.com/ezeoleaf/tblogs/cfg"
 	"github.com/rivo/tview"
 )
 
@@ -20,24 +19,14 @@ const (
 )
 
 func getPagesInfo() (*tview.Pages, *tview.TextView) {
-	appCfg := cfg.GetAPPConfig()
+	// appCfg := cfg.GetAPPConfig()
 	// The presentation slides.
 	slides := []slide{
 		homePage,
 		savedPostsPage,
 		blogsPage,
 		settingsPage,
-	}
-
-	highlight := homeSection
-
-	if appCfg.FirstUse {
-		slides = append([]slide{helpPage}, slides...)
-		appCfg.FirstUse = false
-		highlight = helpSection
-		cfg.UpdateAppConfig(appCfg)
-	} else {
-		slides = append(slides, helpPage)
+		helpPage,
 	}
 
 	pages := tview.NewPages()
@@ -62,7 +51,7 @@ func getPagesInfo() (*tview.Pages, *tview.TextView) {
 		pages.AddPage(title, primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%s"][darkcyan]%s[white][""]  `, index+1, title, title)
 	}
-	info.Highlight(highlight)
+	info.Highlight(homeSection)
 
 	return pages, info
 }

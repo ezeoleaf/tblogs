@@ -17,7 +17,7 @@ func generateHomeList() {
 	appCfg := cfg.GetAPPConfig()
 
 	if len(appCfg.FollowingBlogs) == 0 {
-		listHome.AddItem("You're not following blogs", "Try follow a blog with Ctrl+S from the Blogs (Ctrl+B) page", ' ', nil)
+		listHome.AddItem("Welcome! You're not following any blog", "Try follow a blog with Ctrl+S from the Blogs (Ctrl+B) page", ' ', nil)
 	} else {
 		listHome.Clear()
 
