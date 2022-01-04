@@ -8,7 +8,8 @@ import (
 )
 
 var info *tview.TextView
-var pages *tview.Pages
+
+// var pages *tview.Pages
 
 const (
 	homeSection       = "Home"
@@ -18,14 +19,14 @@ const (
 	settingsSection   = "Settings"
 )
 
-func getPagesInfo() (*tview.Pages, *tview.TextView) {
+func (a *Tblogs) setLayout() {
 	// appCfg := cfg.GetAPPConfig()
 	// The presentation slides.
 	slides := []slide{
-		homePage,
-		savedPostsPage,
-		blogsPage,
-		settingsPage,
+		// homePage,
+		// savedPostsPage,
+		a.setBlogsPage,
+		// settingsPage,
 		helpPage,
 	}
 
@@ -51,9 +52,14 @@ func getPagesInfo() (*tview.Pages, *tview.TextView) {
 		pages.AddPage(title, primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%s"][darkcyan]%s[white][""]  `, index+1, title, title)
 	}
-	info.Highlight(homeSection)
+	info.Highlight(blogsSection)
 
-	return pages, info
+	// Create the main layout.
+	a.layout = tview.NewFlex().
+		SetDirection(tview.FlexRow).
+		AddItem(pages, 0, 1, true).
+		AddItem(info, 1, 1, false)
+
 }
 
 func goToSection(section string) {

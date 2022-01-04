@@ -40,16 +40,6 @@ func validateConfigPath(path string) error {
 }
 
 // GetAPPConfig returns only the APP config
-func GetAPPConfig() models.APPConfig {
-	return config.APP
-}
-
-// GetAPIConfig returns only the API config for the application
-func GetAPIConfig() models.APIConfig {
-	return config.API
-}
-
-// GetConfig returns the entire config for the application
 func GetConfig() models.Config {
 	return config
 }
@@ -72,15 +62,15 @@ func updateConfig() {
 }
 
 // UpdateAppConfig receives an AppConfig and save it in the config.yml file
-func UpdateAppConfig(a models.APPConfig) {
-	config.APP = a
+func UpdateConfig(a models.Config) {
+	config = a
 
 	updateConfig()
 }
 
 // ResetAPPConfig reset the entire AppConfig and return to the initial state
-func ResetAPPConfig() {
-	config.APP = models.APPConfig{}
+func ResetConfig() {
+	config = models.Config{}
 	updateConfig()
 }
 
@@ -142,8 +132,8 @@ func Setup() {
 func UpdateLoginDate() {
 	now := time.Now().In(loc)
 
-	config.APP.LastLogin = config.APP.CurrentLogin
-	config.APP.CurrentLogin = now
+	config.LastLogin = config.CurrentLogin
+	config.CurrentLogin = now
 
-	UpdateAppConfig(config.APP)
+	UpdateConfig(config)
 }

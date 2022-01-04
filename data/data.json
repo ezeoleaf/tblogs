@@ -1,0 +1,449 @@
+{
+    "blogs": [
+        {
+            "title": "Golang",
+            "url": "https://blog.golang.org/feed.atom"
+        },
+        {
+            "title": "The Keyboard",
+            "url": "https://www.blog.google/rss"
+        },
+        {
+            "title": "9 to 5",
+            "url": "https://9to5google.com/feed/"
+        },
+        {
+            "title": "9 to 5 chic",
+            "url": "https://9to5chic.com/feed"
+        },
+        {
+            "title": "Rust",
+            "url": "https://rust.facepunch.com/rss/blog"
+        },
+        {
+            "title": "Cloud with google",
+            "url": "https://cloudblog.withgoogle.com/rss/"
+        },
+        {
+            "title": "Microsoft Developer Blogs",
+            "url": "https://devblogs.microsoft.com/feed/landingpage/"
+        },
+        {
+            "title": "Dot Net",
+            "url": "https://devblogs.microsoft.com/dotnet/feed/"
+        },
+        {
+            "title": "Hackernoon General",
+            "url": "https://hackernoon.com/feed"
+        },
+        {
+            "title": "Hackernoon AI",
+            "url": "https://hackernoon.com/tagged/artificial-intelligence/feed"
+        },
+        {
+            "title": "Android",
+            "url": "https://android-developers.blogspot.com/atom.xml"
+        },
+        {
+            "title": "CodeBetter",
+            "url": "http://codebetter.com/feed/"
+        },
+        {
+            "title": "DevTo",
+            "url": "https://dev.to/feed"
+        },
+        {
+            "title": "A List Apart",
+            "url": "https://alistapart.com/main/feed/"
+        },
+        {
+            "title": "Brave",
+            "url": "https://brave.com/feed/"
+        },
+        {
+            "title": "Coding Horror",
+            "url": "https://blog.codinghorror.com/rss/"
+        },
+        {
+            "title": "Joel on Software",
+            "url": "https://www.joelonsoftware.com/feed/"
+        },
+        {
+            "title": "The Berkun Blog",
+            "url": "https://scottberkun.com/blog/feed/"
+        },
+        {
+            "title": "Geeks for Geeks",
+            "url": "https://www.geeksforgeeks.org/feed/"
+        },
+        {
+            "title": "David Walsh Blog",
+            "url": "https://davidwalsh.name/feed"
+        },
+        {
+            "title": "SixRevisions",
+            "url": "https://www.webfx.com/blog/web-design/feed/"
+        },
+        {
+            "title": "Free Code Camp",
+            "url": "https://www.freecodecamp.org/news/tag/blog/feed"
+        },
+        {
+            "title": "Xamarin",
+            "url": "https://devblogs.microsoft.com/xamarin/feed/"
+        },
+        {
+            "title": "Spread Privacy - DuckDuckGo",
+            "url": "https://spreadprivacy.com/rss/"
+        },
+        {
+            "title": "Github Blog",
+            "url": "https://github.blog/feed/"
+        },
+        {
+            "title": "Google Developers",
+            "url": "http://googledevelopers.blogspot.com/atom.xml"
+        },
+        {
+            "title": "Material UI",
+            "url": "https://www.materialui.co/blog/feed/"
+        },
+        {
+            "title": "HoneyPot Blog",
+            "url": "https://blog.honeypot.io/feed"
+        },
+        {
+            "title": "Facebook for Developers",
+            "url": "https://developers.facebook.com/blog/feed"
+        },
+        {
+            "title": "Techcrunch",
+            "url": "https://techcrunch.com/tag/blogs/feed/"
+        },
+        {
+            "title": "Hackernoon Cryptocurrency",
+            "url": "https://hackernoon.com/tagged/cryptocurrency/feed"
+        },
+        {
+            "title": "Hackernoon Coding",
+            "url": "https://hackernoon.com/tagged/coding/feed"
+        },
+        {
+            "title": "Hackernoon Startups",
+            "url": "https://hackernoon.com/tagged/startups/feed"
+        },
+        {
+            "title": "Hackernoon Learn",
+            "url": "https://hackernoon.com/tagged/udemy/feed"
+        },
+        {
+            "title": "Hackernoon Future",
+            "url": "https://hackernoon.com/tagged/future/feed"
+        },
+        {
+            "title": "Amazon Developers",
+            "url": "https://developer.amazon.com/blogs/home/feed/entries/atom"
+        },
+        {
+            "title": "Docker",
+            "url": "https://www.docker.com/blog/feed/"
+        },
+        {
+            "title": "Kubernetes",
+            "url": "https://kubernetes.io/feed.xml"
+        },
+        {
+            "title": "Terraform - Hashicorp",
+            "url": "https://www.hashicorp.com/blog/feed.xml"
+        },
+        {
+            "title": "Speckyboy",
+            "url": "https://speckyboy.com/feed/"
+        },
+        {
+            "title": "Web Resources Depot",
+            "url": "https://webresourcesdepot.com/feed/"
+        },
+        {
+            "title": "Smashing Magazine",
+            "url": "https://www.smashingmagazine.com/feed"
+        },
+        {
+            "title": "Onextrapixel",
+            "url": "https://onextrapixel.com/feed/"
+        },
+        {
+            "title": "Phpied",
+            "url": "https://www.phpied.com/feed"
+        },
+        {
+            "title": "Alex Sexton",
+            "url": "https://alexsexton.com/atom.xml"
+        },
+        {
+            "title": "Paul Irish",
+            "url": "https://www.paulirish.com/atom.xml"
+        },
+        {
+            "title": "Scotch.io",
+            "url": "https://scotch.io/feed"
+        },
+        {
+            "title": "Netflix Tech Blog",
+            "url": "https://netflixtechblog.com/feed"
+        },
+        
+        {
+            "title": "Amazon AWS",
+            "url": "http://feeds.feedburner.com/AmazonWebServicesBlog"
+        },
+        {
+            "title": "Code as Craft - Etsy",
+            "url": "https://codeascraft.com/feed/"
+        },
+        {
+            "title": "Dropbox Tech",
+            "url": "https://dropbox.tech/feed"
+        },
+        {
+            "title": "LevelUp",
+            "url": "https://levelup.gitconnected.com/feed"
+        },
+        {
+            "title": "Antirez",
+            "url": "http://antirez.com/rss"
+        },
+        {
+            "title": "Toggle",
+            "url": "https://toggl.com/blog/feed"
+        },
+        {
+            "title": "HackerNews",
+            "url": "https://news.ycombinator.com/rss"
+        },
+        {
+            "title": "Codecademy",
+            "url": "https://news.codecademy.com/rss/"
+        },
+        {
+            "title": "TheInformation",
+            "url": "https://www.theinformation.com/feed"
+        },
+        {
+            "title": "Adam Fallon",
+            "url": "https://adamfallon.com/feed/"
+        },
+        {
+            "title": "Evan Miller",
+            "url": "https://www.evanmiller.org/news.xml"
+        },
+        {
+            "title": "Tedium",
+            "url": "https://tedium.co/feed"
+        },
+        {
+            "title": "The Register - Headlines",
+            "url": "https://www.theregister.com/headlines.atom"
+        },
+        {
+            "title": "The Register - Data Center",
+            "url": "https://www.theregister.com/data_centre/headlines.atom"
+        },
+        {
+            "title": "The Register - Software",
+            "url": "https://www.theregister.com/software/headlines.atom"
+        },
+        {
+            "title": "The Register - Security",
+            "url": "https://www.theregister.com/security/headlines.atom"
+        },
+        {
+            "title": "The Register - DevOps",
+            "url": "https://www.theregister.com/devops/headlines.atom"
+        },
+        {
+            "title": "The R - Business",
+            "url": "https://www.theregister.com/business/headlines.atom"
+        },
+        {
+            "title": "The R - Personal Tech",
+            "url": "https://www.theregister.com/personal_tech/headlines.atom"
+        },
+        {
+            "title": "The R - Science",
+            "url": "https://www.theregister.com/science/headlines.atom"
+        },
+        {
+            "title": "The R - Geeks Guide",
+            "url": "https://www.theregister.com/science/geeks_guide/headlines.atom"
+        },
+        {
+            "title": "The R - Emergen Tech",
+            "url": "https://www.theregister.com/emergent_tech/headlines.atom"
+        },
+        {
+            "title": "The R - AI",
+            "url": "https://www.theregister.com/emergent_tech/artificial_intelligence/headlines.atom"
+        },
+        {
+            "title": "The R - IoT",
+            "url": "https://www.theregister.com/emergent_tech/internet_of_things/headlines.atom"
+        },
+        {
+            "title": "The R - Bootnotes",
+            "url": "https://www.theregister.com/bootnotes/headlines.atom"
+        },
+        {
+            "title": "Amazon Developer Blog",
+            "url": "https://developer.amazon.com/blogs/home/feed/entries/atom"
+        },
+        {
+            "title": "Atlassian Genenral",
+            "url": "https://www.atlassian.com/blog/feed"
+        },
+        {
+            "title": "Atlassian Teamwork",
+            "url": "https://www.atlassian.com/blog/teamwork/feed"
+        },
+        {
+            "title": "Atlassian Productivity",
+            "url": "https://www.atlassian.com/blog/productivity/feed"
+        },
+        {
+            "title": "Atlassian Leadership",
+            "url": "https://www.atlassian.com/blog/leadership/feed"
+        },
+        {
+            "title": "Atlassian Technology",
+            "url": "https://www.atlassian.com/blog/technology/feed"
+        },
+        {
+            "title": "Trello",
+            "url": "https://blog.trello.com/rss.xml"
+        },
+        {
+            "title": "Google Developers",
+            "url": "http://googledevelopers.blogspot.com/atom.xml"
+        },
+        {
+            "title": "Doist General",
+            "url": "https://doist.com/blog/feed/"
+        },
+        {
+            "title": "Doist Productivity",
+            "url": "https://doist.com/blog/category/productivity/feed/"
+        },
+        {
+            "title": "Doist Teamwork",
+            "url": "https://doist.com/blog/category/teamwork/feed/"
+        },
+        {
+            "title": "Doist Remote work",
+            "url": "https://doist.com/blog/category/remote-work/feed/"
+        },
+        {
+            "title": "Doist Todoist",
+            "url": "https://doist.com/blog/category/todoist/feed/"
+        },
+        {
+            "title": "Doist Twist",
+            "url": "https://doist.com/blog/category/twist/feed/"
+        },
+        {
+            "title": "Medium",
+            "url": "https://blog.medium.com/feed"
+        },
+        {
+            "title": "Alex Ellis's Blog",
+            "url": "https://blog.alexellis.io/rss/"
+        },
+        {
+            "title": "Laravel",
+            "url": "https://blog.laravel.com/feed"
+        },
+        {
+            "title": "Namecheap",
+            "url": "https://www.namecheap.com/blog/feed/"
+        },
+        {
+            "title": "Stay Relevant - Spanish - Globant",
+            "url": "https://stayrelevant.globant.com/es/feed/"
+        },
+        {
+            "title": "Stay Relevant - English - Globant",
+            "url": "https://stayrelevant.globant.com/en/feed/"
+        },
+        {
+            "title": "The Blog - Adobe",
+            "url": "https://theblog.adobe.com/feed"
+        },
+        {
+            "title": "Apple - News",
+            "url": "https://developer.apple.com/news/rss/news.rss"
+        },
+        {
+            "title": "Apple - Releases",
+            "url": "https://developer.apple.com/news/releases/rss/releases.rss"
+        },
+        {
+            "title": "/var/log/journal - Gael Foppolo",
+            "url": "https://gaelfoppolo.com/feed.xml"
+        },
+        {
+            "title": "Accidentally in Code",
+            "url": "https://cate.blog/feed/"
+        },
+        {
+            "title": ".ryanAckerman",
+            "url": "https://ackermann.io/feed"
+        },
+        {
+            "title": "Adam Bell",
+            "url": "https://blog.adambell.ca/rss.xml"
+        },
+        {
+            "title": "Adam Wareing - Medium",
+            "url": "https://medium.com/feed/@adamwareing241"
+        },
+        {
+            "title": "Adrian's Corner - Adrian Schönig",
+            "url": "https://adrian.schoenig.me/feed.xml"
+        },
+        {
+            "title": "Adrian ´Sliwa - Medium",
+            "url": "https://medium.com/feed/@adrianmsliwa"
+        },
+        {
+            "title": "Agostini.Tech",
+            "url": "https://agostini.tech/feed/"
+        },
+        {
+            "title": "Airspeed Velocity",
+            "url": "https://airspeedvelocity.net/"
+        },
+        {
+            "title": "Je suis un dev",
+            "url": "https://www.jesuisundev.com/feed"
+        },
+        {
+            "title": "Je suis un dev - English",
+            "url": "https://www.jesuisundev.com/en/feed"
+        },
+        {
+            "title": "Dave Cheney",
+            "url": "https://dave.cheney.net/feed/atom"
+        },
+        {
+            "title": "Triplebyte",
+            "url": "https://triplebyte.com/blog/feed"
+        },
+        {
+            "title": "PureCore",
+            "url": "https://purecore.ro/feed/rss.xml"
+        },
+        {
+            "title": "Many",
+            "url": "https://www.many.co.uk/blog/feed"
+        }
+    ]
+}

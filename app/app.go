@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/ezeoleaf/tblogs/cfg"
+	"github.com/ezeoleaf/tblogs/data"
 
 	"github.com/gdamore/tcell"
 	"github.com/rivo/tview"
@@ -9,26 +10,23 @@ import (
 
 type slide func(nextSlide func()) (title string, content tview.Primitive)
 
-var app = tview.NewApplication()
+// var app = tview.NewApplication()
 
 // App contains the tview application and the layout for the display
-type App struct {
-	App    *tview.Application
-	Layout *tview.Flex
+type Tblogs struct {
+	app         *tview.Application
+	layout      *tview.Flex
+	dataService data.Service
 }
 
-// Setup returns an instance of the application
-func Setup() App {
-
+func NewApp(dataService data.Service) Tblogs {
 	cfg.Setup()
 
-	pages, info := getPagesInfo()
+	a := Tblogs{dataService: dataService}
 
-	// Create the main layout.
-	layout := tview.NewFlex().
-		SetDirection(tview.FlexRow).
-		AddItem(pages, 0, 1, true).
-		AddItem(info, 1, 1, false)
+	a.setLayout()
+
+	app := tview.NewApplication()
 
 	// Shortcuts to navigate the slides.
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
@@ -47,14 +45,14 @@ func Setup() App {
 		return event
 	})
 
-	a := App{App: app, Layout: layout}
+	a.app = app
 
 	return a
 }
 
 // Start launches the app
-func (a App) Start() {
-	if err := a.App.SetRoot(a.Layout, true).EnableMouse(true).Run(); err != nil {
+func (a Tblogs) Start() {
+	if err := a.app.SetRoot(a.layout, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
 }
