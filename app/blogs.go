@@ -5,11 +5,6 @@ import (
 	"github.com/rivo/tview"
 )
 
-// var listBlogs *tview.List
-// var listPosts *tview.List
-// var blogs models.Blogs
-// var blogPage *tview.Flex
-
 func (a *Tblogs) getBlogs() *tview.Flex {
 	blogPage := tview.NewFlex()
 	listBlogs := tview.NewList()
@@ -113,41 +108,12 @@ func (a *Tblogs) getBlogs() *tview.Flex {
 // 	generateHomeList()
 // }
 
-func (a Tblogs) setBlogsPage(nextSlide func()) (title string, content tview.Primitive) {
+func (a *Tblogs) setBlogsPage(nextSlide func()) (title string, content tview.Primitive) {
 	pages := tview.NewPages()
-
-	// blogPage = getList()
 
 	blogPage := a.getBlogs()
 
 	pages.AddPage("blogs", blogPage, true, true)
 
-	return blogsSection, pages
+	return BlogsSection, pages
 }
-
-func searchBlogs() {
-	//TODO: Add ability to search
-}
-
-func cancelSearchBlogs() {
-	//TODO: Add ability to search
-}
-
-// Backup version
-// func openBrowser(url string) {
-// 	var err error
-
-// 	switch runtime.GOOS {
-// 	case "linux":
-// 		err = exec.Command("xdg-open", url).Start()
-// 	case "windows":
-// 		err = exec.Command("rundll32", "url.dll,FileProtocolHandler", url).Start()
-// 	case "darwin":
-// 		err = exec.Command("open", url).Start()
-// 	default:
-// 		err = fmt.Errorf("unsupported platform")
-// 	}
-// 	if err != nil {
-// 		log.Fatal(err)
-// 	}
-// }

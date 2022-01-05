@@ -12,11 +12,12 @@ var info *tview.TextView
 // var pages *tview.Pages
 
 const (
-	homeSection       = "Home"
-	helpSection       = "Help"
-	blogsSection      = "Blogs"
-	savedPostsSection = "Saved Posts"
-	settingsSection   = "Settings"
+	HomeSection       = "Home"
+	AboutSection      = "About"
+	TwitterSection    = "Twitter"
+	BlogsSection      = "Blogs"
+	SavedPostsSection = "Saved Posts"
+	SettingsSection   = "Settings"
 )
 
 func (a *Tblogs) setLayout() {
@@ -26,8 +27,9 @@ func (a *Tblogs) setLayout() {
 		// homePage,
 		// savedPostsPage,
 		a.setBlogsPage,
+		a.initTwitterPage,
 		// settingsPage,
-		helpPage,
+		a.setAboutPage,
 	}
 
 	pages := tview.NewPages()
@@ -52,7 +54,7 @@ func (a *Tblogs) setLayout() {
 		pages.AddPage(title, primitive, true, index == 0)
 		fmt.Fprintf(info, `%d ["%s"][darkcyan]%s[white][""]  `, index+1, title, title)
 	}
-	info.Highlight(blogsSection)
+	info.Highlight(BlogsSection)
 
 	// Create the main layout.
 	a.layout = tview.NewFlex().

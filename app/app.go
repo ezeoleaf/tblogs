@@ -12,17 +12,21 @@ type slide func(nextSlide func()) (title string, content tview.Primitive)
 
 // var app = tview.NewApplication()
 
+type appData struct {
+}
+
 // App contains the tview application and the layout for the display
 type Tblogs struct {
 	app         *tview.Application
 	layout      *tview.Flex
 	dataService data.Service
+	data        appData
 }
 
 func NewApp(dataService data.Service) Tblogs {
 	cfg.Setup()
 
-	a := Tblogs{dataService: dataService}
+	a := Tblogs{dataService: dataService, data: appData{}}
 
 	a.setLayout()
 
@@ -31,16 +35,17 @@ func NewApp(dataService data.Service) Tblogs {
 	// Shortcuts to navigate the slides.
 	app.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		switch ek := event.Key(); ek {
-		case tcell.KeyCtrlH:
-			goToSection(helpSection)
+		case tcell.KeyCtrlA:
+			goToSection(AboutSection)
 		case tcell.KeyCtrlB:
-			goToSection(blogsSection)
+			goToSection(BlogsSection)
 		case tcell.KeyCtrlT:
-			goToSection(homeSection)
+			goToSection(TwitterSection)
+			// goToSection(HomeSection)
 		case tcell.KeyCtrlP:
-			goToSection(savedPostsSection)
+			goToSection(SavedPostsSection)
 		case tcell.KeyCtrlX:
-			goToSection(settingsSection)
+			goToSection(SettingsSection)
 		}
 		return event
 	})

@@ -25,14 +25,17 @@ const (
 	mouse    = `(or use your mouse)`
 )
 
-var shortcuts = []string{"Ctrl-S: Save Blog or Post", "Ctrl-F: Search Blogs or Posts", "Ctrl-R: Reload posts in Home page",
+var shortcuts = []string{
+	"Ctrl-S: Save Blog or Post",
+	"Ctrl-F: Search Blogs or Posts",
+	"Ctrl-R: Reload posts in Home page",
 	"Ctrl-L: Toggle posts from last login in Home page",
-	"Ctrl-T: Move to Home page", "Ctrl-B: Move to Blogs page",
-	"Ctrl-H: Move to Help page", "Ctrl-P: Move to Saved Posts page",
+	// "Ctrl-T: Move to Home page", "Ctrl-B: Move to Blogs page",
+	"Ctrl-A: Move to About page", "Ctrl-P: Move to Saved Posts page",
 	"Ctrl-C: Close TBlogs", "Enter: Search posts for blog or open browser with post",
 	"Esc: Returns from posts results to blogs list"}
 
-func helpPage(nextSlide func()) (title string, content tview.Primitive) {
+func (a *Tblogs) setAboutPage(nextSlide func()) (title string, content tview.Primitive) {
 	lines := strings.Split(logo, "\n")
 	logoWidth := 0
 	logoHeight := len(lines)
@@ -70,5 +73,5 @@ func helpPage(nextSlide func()) (title string, content tview.Primitive) {
 			AddItem(tview.NewBox(), 0, 1, false), logoHeight, 1, true).
 		AddItem(frame, 0, 10, false)
 
-	return helpSection, flex
+	return AboutSection, flex
 }

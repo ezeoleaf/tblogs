@@ -11,9 +11,7 @@ const (
 	noOpenRune = 'o'
 )
 
-var emptyFunc = func() {
-	return
-}
+var emptyFunc = func() {}
 
 func getList() *tview.List {
 	gList := tview.NewList()
