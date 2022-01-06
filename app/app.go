@@ -2,6 +2,7 @@ package app
 
 import (
 	"github.com/ezeoleaf/tblogs/cfg"
+	"github.com/ezeoleaf/tblogs/client/twitter"
 	"github.com/ezeoleaf/tblogs/data"
 
 	"github.com/gdamore/tcell"
@@ -17,16 +18,21 @@ type appData struct {
 
 // App contains the tview application and the layout for the display
 type Tblogs struct {
-	app         *tview.Application
-	layout      *tview.Flex
-	dataService data.Service
-	data        appData
+	app           *tview.Application
+	layout        *tview.Flex
+	dataService   data.Service
+	twitterClient *twitter.Client
+	data          appData
 }
 
-func NewApp(dataService data.Service) Tblogs {
+func NewApp(dataService data.Service, twitterClient *twitter.Client) Tblogs {
 	cfg.Setup()
 
-	a := Tblogs{dataService: dataService, data: appData{}}
+	a := Tblogs{
+		dataService:   dataService,
+		twitterClient: twitterClient,
+		data:          appData{},
+	}
 
 	a.setLayout()
 

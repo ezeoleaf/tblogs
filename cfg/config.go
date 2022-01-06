@@ -15,7 +15,7 @@ import (
 var config models.Config
 var loc, _ = time.LoadLocation("UTC")
 
-const configPath = "./cfg/config.yml"
+const configPath = "../../cfg/config.yml"
 
 func parseFlags() (string, error) {
 	configPath := configPath
@@ -75,7 +75,7 @@ func ResetConfig() {
 }
 
 func setNewFile() (string, error) {
-	from, err := os.Open("./cfg/config.example.yml")
+	from, err := os.Open("../../cfg/config.example.yml")
 	if err != nil {
 		log.Fatal(err)
 	}

@@ -1,26 +1,21 @@
-FROM golang:1.13-alpine as build
+FROM golang:alpine AS compiler
 
-ARG version=master
+# Build directory.
+WORKDIR /go/src/tblogs
 
-RUN apk add git make ncurses && \
-    git clone https://github.com/ezeoleaf/tblogs.git $GOPATH/src/github.com/ezeoleaf/tblogs && \
-    cd $GOPATH/src/github.com/ezeoleaf/tblogs && \
-    git checkout $version
+# Add go modules and env files to the WORKDIR and install dependencies.
+ADD go.mod go.sum ./
 
-ENV GOPROXY=https://proxy.golang.org,direct
-ENV GO111MODULE=on
-ENV GOSUMDB=off
+# Add code to the WORKDIR and trigger the build process which will assess code quality
+# and check if unit tests are passing. Golang binary will be found under /bin/goapp
+ADD . ./
+RUN go build -o /bin/larry -ldflags="-w -s" cmd/tblogs/main.go
 
-WORKDIR $GOPATH/src/github.com/ezeoleaf/tblogs
+# Create final application image.
+FROM alpine:3.12
 
-ENV PATH=$PATH:./bin
+RUN apk update && apk upgrade && apk add tzdata
 
-RUN make build
+COPY --from=compiler /bin/tblogs /tblogs
 
-FROM alpine
-
-COPY --from=build /go/src/github.com/ezeoleaf/tblogs/bin/tblogs /usr/local/bin/
-RUN adduser -h /config -DG users -u 20000 tblogs
-
-USER tblogs
-ENTRYPOINT ["tblogs"]
+ENTRYPOINT ["/tblogs"]
