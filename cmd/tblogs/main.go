@@ -18,8 +18,14 @@ var (
 func main() {
 	ds := data.NewService()
 
-	var c *twitter.Client
+	c := setTwitterClient()
 
+	a := app.NewApp(ds, c)
+
+	a.Start()
+}
+
+func setTwitterClient() *twitter.Client {
 	if twitterAccessSecret != "" &&
 		twitterAccessToken != "" &&
 		twitterConsumerSecret != "" &&
@@ -30,12 +36,9 @@ func main() {
 			TwitterAccessToken:    twitterAccessToken,
 			TwitterAccessSecret:   twitterAccessSecret,
 		}
-		c = twitter.NewClient(accessKeys)
+		return twitter.NewClient(accessKeys)
 	}
-
-	a := app.NewApp(ds, c)
-
-	a.Start()
+	return nil
 }
 
 func envString(key string, fallback string) string {
