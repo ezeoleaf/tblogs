@@ -3,7 +3,7 @@ package app
 import (
 	"github.com/ezeoleaf/tblogs/cfg"
 	"github.com/ezeoleaf/tblogs/helpers"
-	"github.com/gdamore/tcell"
+	"github.com/gdamore/tcell/v2"
 	"github.com/pkg/browser"
 	"github.com/rivo/tview"
 )
