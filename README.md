@@ -81,6 +81,12 @@ tblogs
 
 ## Screenshots
 
+<img width="2590" height="1746" alt="image" src="https://github.com/user-attachments/assets/f12d30d8-5491-497c-9792-3698b6a246a1" />
+
+<img width="2700" height="1752" alt="image" src="https://github.com/user-attachments/assets/ffa12e7b-8506-4636-a7a2-48691e3ba219" />
+
+<img width="2880" height="1750" alt="image" src="https://github.com/user-attachments/assets/71fb2253-a253-42aa-98b8-7f85d89206a9" />
+
 ---
 
 ## Contributing
@@ -91,4 +97,4 @@ Pull requests and issues are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## License
 
-[MIT](LICENSE)
+[Apache License 2.0](LICENSE)
