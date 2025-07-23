@@ -1,0 +1,194 @@
+- name: Golang
+  feed: https://blog.golang.org/feed.atom
+- name: The Keyboard
+  feed: https://www.blog.google/rss
+- name: 9 to 5
+  feed: https://9to5google.com/feed/
+- name: Rust
+  feed: https://rust.facepunch.com/rss/blog
+- name: Cloud with google
+  feed: https://cloudblog.withgoogle.com/rss/
+- name: Microsoft Developer Blogs
+  feed: https://devblogs.microsoft.com/feed/landingpage/
+- name: Dot Net
+  feed: https://hackernoon.com/tagged/artificial-intelligence/feed
+- name: Android
+  feed: https://android-developers.blogspot.com/atom.xml
+- name: CodeBetter
+  feed: http://codebetter.com/feed/
+- name: A List Apart
+  feed: https://alistapart.com/main/feed/
+- name: Brave
+  feed: https://brave.com/feed/
+- name: Coding Horror
+  feed: https://scottberkun.com/blog/feed/
+- name: Geeks for Geeks
+  feed: https://www.geeksforgeeks.org/feed/
+- name: David Walsh Blog
+  feed: https://davidwalsh.name/feed
+- name: SixRevisions
+  feed: https://www.webfx.com/blog/web-design/feed/
+- name: Free Code Camp
+  feed: https://www.freecodecamp.org/news/tag/blog/feed
+- name: Spread Privacy - DuckDuckGo
+  feed: https://spreadprivacy.com/rss/
+- name: Github Blog
+  feed: https://github.blog/feed/
+- name: Material UI
+  feed: https://blog.honeypot.io/feed
+- name: Facebook for Developers
+  feed: https://developers.facebook.com/blog/feed
+- name: Techcrunch
+  feed: https://techcrunch.com/tag/blogs/feed/
+- name: Hackernoon Cryptocurrency
+  feed: https://hackernoon.com/tagged/cryptocurrency/feed
+- name: Hackernoon Coding
+  feed: https://hackernoon.com/tagged/coding/feed
+- name: Hackernoon Learn
+  feed: https://hackernoon.com/tagged/udemy/feed
+- name: Hackernoon Future
+  feed: https://hackernoon.com/tagged/future/feed
+- name: Amazon Developers
+  feed: https://kubernetes.io/feed.xml
+- name: Terraform - Hashicorp
+  feed: https://www.hashicorp.com/blog/feed.xml
+- name: Speckyboy
+  feed: https://speckyboy.com/feed/
+- name: Web Resources Depot
+  feed: https://webresourcesdepot.com/feed/
+- name: Smashing Magazine
+  feed: https://www.smashingmagazine.com/feed
+- name: Alex Sexton
+  feed: https://alexsexton.com/atom.xml
+- name: Paul Irish
+  feed: https://www.paulirish.com/atom.xml
+- name: Scotch.io
+  feed: https://scotch.io/feed
+- name: Amazon AWS
+  feed: http://feeds.feedburner.com/AmazonWebServicesBlog
+- name: Code as Craft - Etsy
+  feed: https://codeascraft.com/feed/
+- name: Dropbox Tech
+  feed: https://toggl.com/blog/feed
+- name: HackerNews
+  feed: https://news.ycombinator.com/rss
+- name: Codecademy
+  feed: https://news.codecademy.com/rss/
+- name: TheInformation
+  feed: https://www.theinformation.com/feed
+- name: Evan Miller
+  feed: https://www.theregister.com/headlines.atom
+- name: The Register - Headlines
+  feed: https://www.theregister.com/headlines.atom
+- name: The Register - Data Center
+  feed: https://www.theregister.com/data_centre/headlines.atom
+- name: The Register - Security
+  feed: https://www.theregister.com/security/headlines.atom
+- name: The Register - DevOps
+  feed: https://www.theregister.com/devops/headlines.atom
+- name: The Register - Science
+  feed: https://www.theregister.com/science/headlines.atom
+- name: The Register - Geeks Guide
+  feed: https://www.theregister.com/science/geeks_guide/headlines.atom
+- name: The Register - Emergen Tech
+  feed: https://www.theregister.com/emergent_tech/headlines.atom
+- name: The Register - IoT
+  feed: https://www.theregister.com/emergent_tech/internet_of_things/headlines.atom
+- name: The Register - Bootnotes
+  feed: https://www.theregister.com/bootnotes/headlines.atom
+- name: Atlassian Teamwork
+  feed: https://www.atlassian.com/blog/teamwork/feed
+- name: Atlassian Productivity
+  feed: https://www.atlassian.com/blog/productivity/feed
+- name: Atlassian Leadership
+  feed: https://www.atlassian.com/blog/leadership/feed
+- name: Trello
+  feed: https://blog.trello.com/rss.xml
+- name: Google Developers
+  feed: http://googledevelopers.blogspot.com/atom.xml
+- name: Doist Teamwork
+  feed: https://doist.com/blog/category/teamwork/feed/
+- name: Doist Remote work
+  feed: https://doist.com/blog/category/remote-work/feed/
+- name: Doist Todoist
+  feed: https://doist.com/blog/category/todoist/feed/
+- name: Medium
+  feed: https://blog.medium.com/feed
+- name: Alex Ellis's Blog
+  feed: https://blog.alexellis.io/rss/
+- name: Stay Relevant - Spanish - Globant
+  feed: https://stayrelevant.globant.com/es/feed/
+- name: Stay Relevant - English - Globant
+  feed: https://stayrelevant.globant.com/en/feed/
+- name: The Blog - Adobe
+  feed: https://theblog.adobe.com/feed
+- name: Apple - Releases
+  feed: https://developer.apple.com/news/releases/rss/releases.rss
+- name: /var/log/journal - Gael Foppolo
+  feed: https://gaelfoppolo.com/feed.xml
+- name: Adam Bell
+  feed: https://blog.adambell.ca/rss.xml
+- name: Adrian's Corner - Adrian Schönig
+  feed: https://adrian.schoenig.me/feed.xml
+- name: Agostini.Tech
+  feed: https://agostini.tech/feed/
+- name: Airspeed Velocity
+  feed: https://airspeedvelocity.net/
+- name: Dave Cheney
+  feed: https://dave.cheney.net/feed/atom
+- name: Triplebyte
+  feed: https://triplebyte.com/blog/feed
+- name: PureCore
+  feed: https://purecore.ro/feed/rss.xml
+- name: GitHub Blog
+  feed: https://github.blog/feed/
+- name: Stack Overflow Blog
+  feed: https://stackoverflow.blog/feed/
+- name: Google Developers Blog
+  feed: https://developers.googleblog.com/feeds/posts/default
+- name: Microsoft Developer Blog
+  feed: https://devblogs.microsoft.com/feed/
+- name: Cloudflare Blog
+  feed: https://blog.cloudflare.com/rss/
+- name: AWS News Blog
+  feed: https://aws.amazon.com/blogs/aws/feed/
+- name: Netflix Tech Blog
+  feed: https://netflixtechblog.com/feed
+- name: Tailscale Blog
+  feed: https://tailscale.com/blog/index.xml
+- name: OpenAI Blog
+  feed: https://openai.com/blog/rss.xml
+- name: DeepMind Blog
+  feed: https://www.deepmind.com/blog/rss.xml
+- name: Google AI Blog
+  feed: https://ai.googleblog.com/feeds/posts/default
+- name: Meta AI Blog
+  feed: https://ai.facebook.com/blog/rss/
+- name: Hugging Face Blog
+  feed: https://huggingface.co/blog/rss.xml
+- name: Andrej Karpathy Blog
+  feed: https://karpathy.github.io/feed.xml
+- name: Sebastian Ruder
+  feed: https://ruder.io/rss.xml
+- name: Krebs on Security
+  feed: https://krebsonsecurity.com/feed/
+- name: Bruce Schneier
+  feed: https://www.schneier.com/blog/atom.xml
+- name: Threatpost
+  feed: https://threatpost.com/feed/
+- name: The Hacker News
+  feed: https://feeds.feedburner.com/TheHackersNews
+- name: Malwarebytes Labs
+  feed: https://blog.malwarebytes.com/feed/
+- name: SANS Internet Storm Center
+  feed: https://isc.sans.edu/rssfeed.xml
+- name: Rapid7 Blog
+  feed: https://www.rapid7.com/blog/rss.xml
+- name: Palo Alto Unit 42
+  feed: https://unit42.paloaltonetworks.com/feed/
+- name: Cisco Talos Blog
+  feed: https://blog.talosintelligence.com/feeds/posts/default
+- name: FireEye Threat Research Blog (now Mandiant)
+  feed: https://www.mandiant.com/resources/rss
+- name: Dark Reading
+  feed: https://www.darkreading.com/rss.xml

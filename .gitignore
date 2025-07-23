@@ -1,5 +1,5 @@
 .env
-tblogs
 .DS_*
 cfg/config.yml
 config.yml
+bin/
