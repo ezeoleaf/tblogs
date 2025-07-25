@@ -19,6 +19,10 @@ func (a *App) generateBlogsList() (blogPage *tview.Flex, listBlogs *tview.List, 
 	listBlogs = tview.NewList()
 	listBlogs.ShowSecondaryText(false)
 
+	if a.viewsList["posts"] != nil {
+		a.viewsList["posts"].Clear()
+	}
+
 	listBlogs.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if event.Key() == tcell.KeyCtrlS {
 			a.followBlogs(listBlogs)
@@ -33,57 +37,14 @@ func (a *App) generateBlogsList() (blogPage *tview.Flex, listBlogs *tview.List, 
 		return event
 	})
 
-	a.filterBlogsList(listBlogs, "")
-
 	listPosts = tview.NewList()
 	listPosts.SetDoneFunc(func() {
 		a.TApp.SetFocus(listBlogs)
 	})
 
-	listBlogs.SetSelectedFunc(func(x int, s string, s1 string, r rune) {
-		listPosts.Clear()
-		blog := a.currentBlogs[x]
-		listPosts.AddItem("Loading...", blog.Feed, 0, nil)
-		go func() {
-			fp := gofeed.NewParser()
-			feed, err := fp.ParseURL(blog.Feed)
-			a.TApp.QueueUpdateDraw(func() {
-				listPosts.Clear()
-				if err != nil {
-					listPosts.AddItem("Failed to load feed", err.Error(), 0, nil)
-					return
-				}
-				for _, item := range feed.Items {
-					title := item.Title
-					published := ""
-					if item.PublishedParsed != nil {
-						published = item.PublishedParsed.Format("2006-01-02 15:04")
-					}
-					link := item.Link
-					itemLink := link
-					listPosts.AddItem(title, published, emptyRune, func() {
-						err := browser.OpenURL(itemLink)
-						if err != nil {
-							log.Printf("failed to open URL: %v", err)
-						}
-					})
-				}
-				if len(feed.Items) == 0 {
-					listPosts.AddItem("No posts found", "", 0, nil)
-				}
-				listPosts.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
-					if event.Key() == tcell.KeyCtrlS {
-						x := listPosts.GetCurrentItem()
-						post := feed.Items[x]
-						a.savePost(listPosts, post)
-						return nil
-					}
-					return event
-				})
-			})
-		}()
-		a.TApp.SetFocus(listPosts)
-	})
+	a.viewsList["posts"] = listPosts
+
+	a.filterBlogsList(listBlogs, "")
 
 	blogPage.AddItem(listBlogs, 0, 1, true).
 		AddItem(listPosts, 0, 1, false)
@@ -118,6 +79,8 @@ func (a *App) showBlogSearchModal(listBlogs *tview.List) {
 // Filter blogs in the list by name
 func (a *App) filterBlogsList(listBlogs *tview.List, term string) {
 	listBlogs.Clear()
+	listPosts := a.viewsList["posts"]
+
 	found := false
 	a.currentBlogs = []config.Blog{}
 	for _, blog := range a.Config.Blogs {
@@ -134,7 +97,55 @@ func (a *App) filterBlogsList(listBlogs *tview.List, term string) {
 			if isIn {
 				r = followRune
 			}
-			listBlogs.AddItem(blog.Name, blog.Feed, r, nil)
+			listBlogs.AddItem(blog.Name, blog.Feed, r, func() {
+				listPosts.Clear()
+				listPosts.AddItem("Loading...", blog.Feed, 0, nil)
+				go func() {
+					feed, err := a.getFeed(blog.Feed)
+					a.TApp.QueueUpdateDraw(func() {
+						listPosts.Clear()
+						if err != nil {
+							listPosts.AddItem("Failed to load feed", err.Error(), 0, nil)
+							return
+						}
+						for _, item := range feed.Items {
+							title := item.Title
+							published := ""
+							if item.PublishedParsed != nil {
+								published = item.PublishedParsed.Format("2006-01-02 15:04")
+							}
+							link := item.Link
+							itemLink := link
+
+							_, _, isIn := a.isPostSaved(item)
+							r := emptyRune
+							if isIn {
+								r = savedRune
+							}
+
+							listPosts.AddItem(title, published, r, func() {
+								err := browser.OpenURL(itemLink)
+								if err != nil {
+									log.Printf("failed to open URL: %v", err)
+								}
+							})
+						}
+						if len(feed.Items) == 0 {
+							listPosts.AddItem("No posts found", "", 0, nil)
+						}
+						listPosts.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
+							if event.Key() == tcell.KeyCtrlS {
+								x := listPosts.GetCurrentItem()
+								post := feed.Items[x]
+								a.savePost(listPosts, post, true, false, blog.Name)
+								return nil
+							}
+							return event
+						})
+					})
+				}()
+				a.TApp.SetFocus(listPosts)
+			})
 			a.currentBlogs = append(a.currentBlogs, blog)
 		}
 	}
@@ -165,20 +176,22 @@ func (a *App) getFeed(url string) (*gofeed.Feed, error) {
 	return feedRsp, nil
 }
 
-func (a *App) savePost(listPosts *tview.List, post *gofeed.Item) {
-	x := listPosts.GetCurrentItem()
-
+func (a *App) isPostSaved(post *gofeed.Item) (string, int, bool) {
 	postHash := internal.GetHash([]string{post.Title, post.Content, post.Link})
 
-	isIn := false
-	ix := -1
 	for i, post := range a.Config.App.SavedPosts {
 		if post.Hash == postHash {
-			isIn = true
-			ix = i
-			break
+			return postHash, i, true
 		}
 	}
+
+	return postHash, -1, false
+}
+
+func (a *App) savePost(listPosts *tview.List, post *gofeed.Item, refreshHome, includeBlogName bool, blogName string) {
+	x := listPosts.GetCurrentItem()
+
+	postHash, ix, isIn := a.isPostSaved(post)
 
 	r := emptyRune
 	if !isIn {
@@ -204,14 +217,16 @@ func (a *App) savePost(listPosts *tview.List, post *gofeed.Item) {
 		published = post.PublishedParsed.Format("2006-01-02 15:04")
 	}
 
-	updateItemList(listPosts, x, post.Title, published, r, func() {
+	updateItemList(listPosts, x, post.Title, blogName+" - "+published, r, func() {
 		err := browser.OpenURL(post.Link)
 		if err != nil {
 			log.Printf("failed to open URL: %v", err)
 		}
 	})
 
-	a.generateHomeList(a.viewsList["home"])
+	if refreshHome {
+		a.generateHomeList(a.viewsList["home"])
+	}
 	a.generateSavedPosts(a.viewsList["savedPosts"])
 }
 

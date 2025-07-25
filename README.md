@@ -55,6 +55,7 @@ tblogs
   - `Ctrl+F` — Search
   - `Ctrl+S` — Save/follow
   - `Ctrl+D` — Delete saved post
+  - `Ctrl+L` — Toggle last login mode. When on, only posts published after the last login date are shown.
 - Select a blog to view its posts (fetched live from the feed)
 - Press `Enter` on a post to open it in your browser
 
@@ -75,7 +76,6 @@ tblogs
 
 - Binaries are built automatically for each release (macOS, Linux, Windows).
 - See the [Releases](https://github.com/ezeoleaf/tblogs/releases) page for downloads.
-- Homebrew formula and other package managers coming soon!
 
 ---
 

@@ -12,7 +12,7 @@ import (
 type AppConfig struct {
 	SavedPosts     []Post    `yaml:"saved_posts"`
 	FollowingBlogs []string  `yaml:"following_blogs"`
-	FirstUse       bool      `yaml:"first_use"`
+	LastLoginMode  bool      `yaml:"last_login_mode"`
 	LastLogin      time.Time `yaml:"last_login"`
 	CurrentLogin   time.Time `yaml:"current_login"`
 	FilteredWords  []string  `yaml:"filtered_words"`
@@ -97,7 +97,6 @@ func LoadConfig(path string) (*Config, error) {
 				App: AppConfig{
 					SavedPosts:     []Post{},
 					FollowingBlogs: []string{},
-					FirstUse:       true,
 					FilteredWords:  []string{},
 				},
 				Blogs: blogs,
@@ -126,6 +125,8 @@ func LoadConfig(path string) (*Config, error) {
 	if err := decoder.Decode(&cfg); err != nil {
 		return nil, err
 	}
+
+	cfg.App.CurrentLogin = time.Now()
 
 	return &cfg, nil
 }

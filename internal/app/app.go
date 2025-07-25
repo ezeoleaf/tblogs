@@ -12,12 +12,13 @@ import (
 
 // App contains the tview application, the layout for the display, and the loaded config
 type App struct {
-	TApp         *tview.Application
-	TLayout      *tview.Flex
-	Config       *config.Config
-	Cache        *Cache
-	viewsList    map[string]*tview.List
-	currentBlogs []config.Blog
+	TApp             *tview.Application
+	TLayout          *tview.Flex
+	Config           *config.Config
+	Cache            *Cache
+	viewsList        map[string]*tview.List
+	currentBlogs     []config.Blog
+	currentHomePosts []PostWithMeta
 }
 
 type Cache struct {
@@ -57,6 +58,9 @@ func NewApp(cfg *config.Config) *App {
 			app.goToSection(helpSection, info)
 		case tcell.KeyCtrlB:
 			app.goToSection(blogsSection, info)
+			if app.viewsList["posts"] != nil {
+				app.viewsList["posts"].Clear()
+			}
 		case tcell.KeyCtrlT:
 			app.goToSection(homeSection, info)
 		case tcell.KeyCtrlP:
@@ -74,4 +78,9 @@ func (a *App) Run() {
 	if err := a.TApp.SetRoot(a.TLayout, true).EnableMouse(true).Run(); err != nil {
 		panic(err)
 	}
+
+	defer func() {
+		a.Config.App.LastLogin = a.Config.App.CurrentLogin
+		config.SaveConfig(a.Config, "")
+	}()
 }
