@@ -44,7 +44,7 @@ func (a *App) generateSavedPosts(listSavedPosts *tview.List) {
 				// // Remove the post at index x
 				a.Config.App.SavedPosts = append(a.Config.App.SavedPosts[:x], a.Config.App.SavedPosts[x+1:]...)
 				// Persist the config change
-				err := config.SaveConfig(a.Config, "")
+				err := config.SaveConfig(a.Config)
 				if err != nil {
 					log.Printf("failed to save config: %v", err)
 					return nil

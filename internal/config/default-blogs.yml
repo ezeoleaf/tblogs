@@ -140,8 +140,6 @@
   feed: https://triplebyte.com/blog/feed
 - name: PureCore
   feed: https://purecore.ro/feed/rss.xml
-- name: GitHub Blog
-  feed: https://github.blog/feed/
 - name: Stack Overflow Blog
   feed: https://stackoverflow.blog/feed/
 - name: Google Developers Blog

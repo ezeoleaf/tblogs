@@ -82,7 +82,7 @@ func (a *App) Run() {
 
 	defer func() {
 		a.Config.App.LastLogin = a.Config.App.CurrentLogin
-		err := config.SaveConfig(a.Config, "")
+		err := config.SaveConfig(a.Config)
 		if err != nil {
 			log.Printf("failed to save config: %v", err)
 		}
