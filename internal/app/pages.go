@@ -12,6 +12,7 @@ const (
 	helpSection       = "Help"
 	blogsSection      = "Blogs"
 	savedPostsSection = "Saved Posts"
+	xSection          = "X"
 )
 
 func (a *App) getPagesInfo() (*tview.Pages, *tview.TextView) {
@@ -19,6 +20,7 @@ func (a *App) getPagesInfo() (*tview.Pages, *tview.TextView) {
 		a.homePage,
 		a.savedPostsPage,
 		a.blogsPage,
+		a.xPage,
 		a.helpPage,
 	}
 

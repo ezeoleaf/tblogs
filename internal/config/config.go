@@ -16,6 +16,15 @@ type AppConfig struct {
 	LastLogin      time.Time `yaml:"last_login"`
 	CurrentLogin   time.Time `yaml:"current_login"`
 	FilteredWords  []string  `yaml:"filtered_words"`
+	XCred          XCred     `yaml:"x_cred"`
+}
+
+type XCred struct {
+	ClientID     string `yaml:"client_id"`
+	ClientSecret string `yaml:"client_secret"`
+	AccessToken  string `yaml:"access_token"`
+	RefreshToken string `yaml:"refresh_token"`
+	Username     string `yaml:"username"`
 }
 
 type Post struct {
@@ -73,6 +82,7 @@ func LoadConfig() (*Config, error) {
 					SavedPosts:     []Post{},
 					FollowingBlogs: []string{},
 					FilteredWords:  []string{},
+					XCred:          XCred{},
 				},
 				Blogs: blogs,
 			}
