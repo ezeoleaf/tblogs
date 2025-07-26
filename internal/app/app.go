@@ -66,6 +66,8 @@ func NewApp(cfg *config.Config) *App {
 			app.goToSection(homeSection, info)
 		case tcell.KeyCtrlP:
 			app.goToSection(savedPostsSection, info)
+		case tcell.KeyCtrlX:
+			app.goToSection(xSection, info)
 		}
 		return event
 	})

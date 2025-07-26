@@ -4,6 +4,7 @@ APP = tblogs
 
 build:
 	go build -o bin/$(APP) ./cmd/$(APP)
+	go build -o bin/xauth ./cmd/xauth
 
 run: build
 	bin/$(APP)
@@ -15,14 +16,14 @@ lint:
 	golangci-lint run
 
 clean:
-	rm -rf bin/$(APP)
+	rm -rf bin/$(APP) bin/xauth
 
 install:
 	go install ./cmd/$(APP)
 
 help:
 	@echo "Common commands:"
-	@echo "  make build    # Build the app"
+	@echo "  make build    # Build the app and xauth helper"
 	@echo "  make run      # Build and run the app"
 	@echo "  make test     # Run tests"
 	@echo "  make lint     # Run linter"
