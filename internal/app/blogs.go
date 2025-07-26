@@ -2,6 +2,7 @@ package app
 
 import (
 	"log"
+	"slices"
 	"strings"
 	"time"
 
@@ -86,17 +87,17 @@ func (a *App) filterBlogsList(listBlogs *tview.List, term string) {
 	for _, blog := range a.Config.Blogs {
 		if term == "" || strings.Contains(strings.ToLower(blog.Name), strings.ToLower(term)) {
 			found = true
-			isIn := false
-			for _, id := range a.Config.App.FollowingBlogs {
-				if id == blog.Name {
-					isIn = true
-					break
-				}
-			}
+			isIn := slices.Contains(a.Config.App.FollowingBlogs, blog.Name)
+
 			r := emptyRune
 			if isIn {
 				r = followRune
 			}
+
+			if term != "" {
+				listBlogs.AddItem("=== SEARCHING MODE === "+term, "", 0, nil)
+			}
+
 			listBlogs.AddItem(blog.Name, blog.Feed, r, func() {
 				listPosts.Clear()
 				listPosts.AddItem("Loading...", blog.Feed, 0, nil)
@@ -206,7 +207,7 @@ func (a *App) savePost(listPosts *tview.List, post *gofeed.Item, refreshHome, in
 		a.Config.App.SavedPosts = append(a.Config.App.SavedPosts[:ix], a.Config.App.SavedPosts[ix+1:]...)
 	}
 
-	err := config.SaveConfig(a.Config, "")
+	err := config.SaveConfig(a.Config)
 	if err != nil {
 		log.Printf("failed to save config: %v", err)
 		return
@@ -255,7 +256,7 @@ func (a *App) followBlogs(listBlogs *tview.List) {
 		a.Config.App.FollowingBlogs = append(a.Config.App.FollowingBlogs[:ix], a.Config.App.FollowingBlogs[ix+1:]...)
 	}
 
-	err := config.SaveConfig(a.Config, "")
+	err := config.SaveConfig(a.Config)
 	if err != nil {
 		log.Printf("failed to save config: %v", err)
 	}

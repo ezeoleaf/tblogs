@@ -127,7 +127,7 @@ func (a *App) generateHomeList(listHome *tview.List) {
 
 		if event.Key() == tcell.KeyCtrlL {
 			a.Config.App.LastLoginMode = !a.Config.App.LastLoginMode
-			err := config.SaveConfig(a.Config, "")
+			err := config.SaveConfig(a.Config)
 			if err != nil {
 				log.Printf("failed to save config: %v", err)
 			}
