@@ -68,7 +68,7 @@ tblogs
   - **Windows:** `%APPDATA%\tblogs\data.yml`
 - On first run, the config is created and pre-populated with a curated list of blogs.
 - You can edit the config file directly to add/remove blogs, or use the app UI.
-- Default blogs are defined in [`internal/config/default_blogs.yml`](internal/config/default_blogs.yml).
+- Default blogs are defined in [`internal/config/default-blogs.yml`](internal/config/default-blogs.yml).
 
 ---
 
